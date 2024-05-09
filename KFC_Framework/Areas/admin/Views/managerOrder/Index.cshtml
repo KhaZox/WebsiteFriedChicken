@@ -1,0 +1,193 @@
+﻿@model IEnumerable<KFC_Framework.Models.DonDatHang>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+<table id="orderTable" class="table-sm table table-striped table-light table-hover custom-thead-color">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">
+                Mã ĐH
+            </th>
+            <th scope="col">
+                Mã KH
+            </th>
+            <th scope="col">
+                Tên Khách hàng
+            </th>
+            <th scope="col">Trị giá</th>
+            <th scope="col">Ngày đặt hàng</th>
+            <th scope="col">Ngày nhận hàng</th>
+            <th scope="col">Tình Trạng</th>
+            <th scope="col">&#160;</th>
+        </tr>
+    </thead>
+    <tbody class="class=" table-group-divider align-middle"">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaDDH)
+                </td>
+                @if (item.MaKH == null)
+                {
+                    <td>
+                        -------
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaKH)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNguoiNhan)
+                </td>
+                <td class="text-end">
+                    @String.Format("{0:#,##0} VNĐ", item.TriGia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayDH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayGH)
+                </td>
+                <td class="">
+                    @switch (item.TinhTrang)
+                    {
+                        case "Đã hủy":
+                            <span class="status bg-admin fw-medium text-light rounded-4 py-1 px-3">@item.TinhTrang</span>
+                            break;
+                        case "Chờ xử lý":
+                            <span class="status bg-staff fw-medium text-light rounded-4 py-1 px-3">@item.TinhTrang</span>
+                            break;
+                        case "Đang vận chuyển":
+                            <span class="status bg-customer fw-medium text-light rounded-4 py-1 px-3">@item.TinhTrang</span>
+                            break;
+                        case "Hoàn thành":
+                            <span class="status bg-success-order bg-gradient rounded-4 py-1 px-3">@item.TinhTrang</span>
+                            @*<span class="status bg-staff--warehouse fw-medium text-light rounded-4 py-1 px-3">@item.LoaiTK</span>*@
+                            break;
+                    }
+                </td>
+
+                <td class="text-end">
+                    <button type="button" class="btn control-padding" data-bs-toggle="modal" data-bs-target="#inforModal_@item.MaDDH" data-bs-whatever="xxxxx">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <div class="modal fade" id="inforModal_@item.MaDDH" tabindex="-1" aria-labelledby="inforModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="inforModalLabel">Order information of @item.MaDDH</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body text-start">
+                                    <form class="w-100">
+                                        @if (item.MaKH != null)
+                                        {
+                                            <div class="mb-3">
+                                                <label for="recipient-name" class="col-form-label">Mã Khách hàng</label>
+                                                <input type="text" class="form-control" value="@item.MaKH" id="recipient-name" disabled>
+                                            </div>
+                                        }
+                                        <div class="mb-3">
+                                            <label for="phone" class="col-form-label">Số Điện Thoại Nhận</label>
+                                            <input class="form-control" value="@item.SDTNhanHang" id="phone" disabled />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="col-form-label">Email</label>
+                                            <input class="form-control" value="@item.Email" id="email" disabled />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="local" class="col-form-label">Địa chỉ nhận hàng</label>
+                                            <input class="form-control" value="@item.DiaChiNhan" id="local" disabled />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="TypePay" class="col-form-label">Hình thức thanh toán</label>
+                                            <input class="form-control" value="@item.HTThanhToan" id="TypePay" disabled />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="typeShip" class="col-form-label">Hình thức giao hàng</label>
+                                            <input class="form-control" value="@item.HTGiaoHang" id="typeShip" disabled />
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @Html.ActionLink(" ", "Edit", new { id = item.MaDDH }, new { @class = "action-link bi bi-pencil", @style = "margin-right: 10px; text-decoration: none;" })
+
+                    @*@Html.ActionLink(" ", "Delete", new { id = item.MaDDH }, new { @class = "btn btn-danger rounded-circle rounded-5 control-padding action-link bi bi-trash", @style = "margin-right: 10px; text-decoration: none;" })*@
+
+                    @*@Html.ActionLink(" ", "exportBill", new { id = item.MaDDH }, new { @class = "btn btn-warning rounded-circle rounded-5 control-padding action-link bi bi-receipt-cutoff", @style = "margin-right: 10px; text-decoration: none;" })*@
+                    @if (item.TinhTrang != "Hoàn thành" && item.TinhTrang != "Đã hủy")
+                    {
+                        <button type="button" class="btn btn-warning rounded-circle rounded-5 control-padding" data-bs-toggle="modal" data-bs-target="#deleteModal_@item.MaDDH">
+                            <i class="bi bi-receipt-cutoff"></i>
+                        </button>
+                    }
+                    <div class="modal fade" id="deleteModal_@item.MaDDH" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Xuất Hóa Đơn</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có muốn tạo hóa đơn cho mã <strong>@item.MaDDH</strong> này?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    @using (Html.BeginForm("exportBill", "managerOrder", new { id = item.MaDDH }, FormMethod.Post))
+                                    {
+                                        <button type="submit" class="btn btn-success">Tạo Hóa Đơn</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+@section css{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Areas/admin/CSS/Admin.css">
+}
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#orderTable').DataTable({
+                /*autoWidth: false,*/
+                columns: [null, { width: '100px' }, { width: '150px' }, { width: '113.675px' }, { width: '212.413px' }, { width: '212.413px' }, { width: '144.163px' }, { width: '131.413px' }],
+                columnDefs: [{ orderable: false, targets: 7 }],
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true,
+                select: false,
+                processing: true,
+                lengthMenu: [10, 25, 50, 100],
+                responsive: true,
+            })
+        });
+
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+    </script>
+}

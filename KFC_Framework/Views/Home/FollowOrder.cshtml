@@ -1,0 +1,161 @@
+﻿@*@model KFC_Framework.Models.DonDatHang*@
+@{
+    ViewBag.Title = "FollowOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container text-center">
+    <img src="https://commonseoquestions.com/2/wp-content/uploads/2014/07/Search.jpg" style="width: 200px; height: 200px;" />
+
+    <div class="input-group mt-2 mb-5 w-50" style="margin: 0 auto">
+        <input id="orderInput" type="text" class="form-control" placeholder="Nhập mã đơn đặt hàng" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-danger" type="button" id="searchButton">Tìm kiếm</button>
+    </div>
+
+    <div id="spinner" class="spinner-border text-danger" role="status" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <table id="followTable" style="display: none" class="table-sm table table-striped table-light table-hover custom-thead-color">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">
+                    Mã ĐH
+                </th>
+                <th scope="col">
+                    Mã KH
+                </th>
+                <th scope="col">
+                    Tên Khách hàng
+                </th>
+                <th scope="col">Trị giá</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Ngày nhận hàng</th>
+                <th scope="col">Tình Trạng</th>
+                <th scope="col">&#160;</th>
+            </tr>
+        </thead>
+        <tbody id="orderDetails" class="table-group-divider align-middle">
+        </tbody>
+    </table>
+</div>
+
+@section css{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Areas/admin/CSS/Admin.css">
+}
+@section scripts{
+    <script>
+        //$(document).ready(() => {
+        //    $('#followTable').DataTable({
+        //        "scrollY": "400px",
+        //        "scrollCollapse": true,
+        //        "paging": true,
+        //        select: false,
+        //        processing: true,
+        //        responsive: true,
+        //    })
+        //})
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Định nghĩa hàm để định dạng số tiền
+            function formatCurrency(amount) {
+                // Định dạng số tiền thành chuỗi với dấu phân cách hàng nghìn
+                var formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                // Thêm đơn vị tiền tệ vào cuối chuỗi
+                return formattedAmount + " VNĐ";
+            }
+
+            $('#searchButton').click(function () {
+                var maddh = $('input[type=text]').val().trim(); // Lấy giá trị từ input và loại bỏ các khoảng trắng ở đầu và cuối
+                if (maddh !== '') {
+                    $('#spinner').show();
+                    // Nếu có giá trị trong input, gửi yêu cầu tìm kiếm
+                    $.post('/Home/getOrder', { maddh: maddh }, function (data) {
+                        $('#spinner').hide();
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            // Hiển thị dữ liệu trả về trong bảng
+                            $('#orderDetails').empty(); // Xóa nội dung hiện tại của tbody
+                            $('#orderDetails').append(`
+                            <tr>
+                                <td>${data.MaDDH}</td>
+                                <td>${data.MaKH == null ? '------': data.MaKH}</td>
+                                <td>${data.TenNguoiNhan}</td>
+                                <td>${formatCurrency(data.TriGia)}</td>
+                                <td>${convertDateFromJson(data.NgayDH)}</td>
+                                <td>${convertDateFromJson(data.NgayGH)}</td>
+                                <td>${getStatusHTML(data.TinhTrang)}</td>
+                                <td>
+                                    ${(data.TinhTrang === 'Chờ xử lý' || data.TinhTrang === 'Đang xử lý') ? `
+                                        <button type="button" class="btn btn-danger rounded-circle rounded-5 control-padding" data-bs-toggle="modal" data-bs-target="#${data.MaDDH}">
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    ` : `
+                                        <button type="button" class="btn btn-danger rounded-circle rounded-5 control-padding" data-bs-toggle="modal" data-bs-target="#${data.MaDDH}" disabled>
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    `}
+                                    <div class="modal fade" id="${data.MaDDH}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Hủy Đơn Hàng</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Bạn có muốn hủy đơn hàng  <strong>${data.MaDDH}</strong>?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    @using (Html.BeginForm("deleOrder", "Home", FormMethod.Post))
+                                                    {
+                                                        <input type="hidden" name="maddh" value="${data.MaDDH}" />
+                                                        <button data-maddh="${data.MaDDH}" type="submit" class="btn btn-danger">Hủy Đơn Hàng</button>
+                                                    }
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        `);
+                            $('#followTable').css("display", ""); // Hiển thị bảng
+                        }
+                    });
+                } else {
+                    // Nếu không có giá trị trong input, ẩn bảng và xóa dữ liệu
+                    $('#followTable').css("display", "none"); // Ẩn bảng
+                    $('#orderDetails').empty(); // Xóa dữ liệu của tbody
+                }
+            });
+            function convertDateFromJson(jsonDate) {
+                var dateString = jsonDate.replace(/\/Date\((-?\d+)\)\//, '$1');
+                var date = new Date(parseInt(dateString));
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                return (day < 10 ? '0' : '') + day + '/' + (month < 10 ? '0' : '') + month + '/' + year;
+            }
+            function getStatusHTML(status) {
+                switch (status) {
+                    case "Đã hủy":
+                        return `<span class="status bg-admin fw-medium text-light rounded-4 py-1 px-3">${status}</span>`;
+                    case "Đang xử lý":
+                        return `<span class="status bg-staff fw-medium text-light rounded-4 py-1 px-3">${status}</span>`;
+                    case "Đang vận chuyển":
+                        return `<span class="status bg-customer fw-medium text-light rounded-4 py-1 px-3">${status}</span>`;
+                    case "Hoàn thành":
+                        return `<span class="status bg-success-order bg-gradient rounded-4 py-1 px-3">${status}</span>`;
+                    case "Chờ xử lý":
+                        return `<span class="status bg-staff--warehouse fw-medium text-light rounded-4 py-1 px-3">${status}</span>`;
+                    default:
+                        return ""; // Trả về chuỗi rỗng nếu không có trạng thái nào phù hợp
+                }
+            }
+        });
+
+    </script>
+}

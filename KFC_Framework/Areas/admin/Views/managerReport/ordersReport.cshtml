@@ -1,0 +1,100 @@
+﻿@model IEnumerable<KFC_Framework.Models.DonDatHang>
+
+@{
+    ViewBag.Title = "ordersReport";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*@if (TempData["Error"] != null)
+{
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Thông báo lỗi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @TempData["Error"]
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+<div class="d-flex">
+    <select id="selectType" class="form-select w-25 rounded-pill" aria-label="Default select example" onchange="updateType()">
+        @*<option selected>Chọn năm</option>*@
+        <option selected value="pie">Biểu đồ tròn</option>
+        <option value="column">Biểu đồ cột</option>
+        <option value="splineArea">Biểu đồ đường</option>
+
+    </select>
+    <button onclick="exportFile()" class="btn btn-outline-secondary rounded-pill fw-bold ms-3 ">Download File</button>
+</div>
+
+<div id="chartContainer" class="mt-2" style="height: 370px; width: 100%;"></div>
+
+
+@section css{
+    <link rel="stylesheet" href="~/Areas/admin/CSS/Admin.css">
+}
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script>
+        var chart;
+        window.onload = function () {
+            initializeChart();
+            updateType();
+        };
+        function exportFile() {
+            window.location.href = "/admin/managerReport/ExportExcel_EPPLUS";
+        }
+
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+
+        function initializeChart() {
+            chart = new CanvasJS.Chart("chartContainer", {
+                theme: "light1",
+                exportEnabled: true,
+                animationEnabled: true,
+                title: {
+                    text: "REPORT STATISTICS ORDER",
+                },
+                subtitles: [{
+                    text: ""
+                }],
+                data: [{
+                    type: "pie",
+                    startAngle: 180,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: @Html.Raw(ViewBag.DataPoints)
+                }]
+            });
+
+            chart.render();
+        }
+        function updateType() {
+            var selectedType = $('#selectType').val()
+
+            chart.data[0].set("type", selectedType);
+            if (selectedType == "splineArea") {
+                delete chart.data[0].options.showInLegend;
+            }
+            if (selectedType == "column") {
+                delete chart.data[0].options.showInLegend;
+            }
+            if(selectedType == "pie") {
+                chart.data[0].set("showInLegend", true);
+            }
+            chart.render();
+        }
+
+</script>
+

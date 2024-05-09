@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+    @RenderSection("css", false)
+</head>
+<body>
+    <header class="container-fluid">
+        @* Header-left: Logo - navigation *@
+        <div class="header-left">
+            <a href="/home">
+                <img id="logo" src="https://static.kfcvietnam.com.vn/images/web/kfc-logo.svg?v=5.0" />
+            </a>
+            <ul id="nav" class="nav">
+                <li class="nav-items" title="Thực đơn">
+                    <a href="/Menu">THỰC ĐƠN</a>
+                </li>
+                <li class="nav-items" title="Khuyến mãi">
+                    <a href="/Menu">KHUYẾN MÃI</a>
+                </li>
+                <li class="nav-items" title="Dịch vụ tiệc">
+                    <a href="/Home/FollowOrder">THEO DÕI ĐƠN HÀNG</a>
+                </li>
+                <li class="nav-items" title="Hệ thống nhà hàng">
+                    <a href="/Local">HỆ THỐNG NHÀ HÀNG</a>
+                </li>
+            </ul>
+        </div>
+        @* Header-right: user-cart *@
+        <div class="header-right">
+            <a href="/Cart" class="btn disabled text-light btn_dathang btn_dathang--header " id="btn_dathang_1">Bắt đầu đặt hàng</a>
+            <ul class="header-right-list">
+                <li class="header-right-items">
+                    @if (Session["LoggedInUser"] != null)
+                    {
+                        <a href="/Account/PersonAccount">
+                            <ion-icon class="header-right_img" name="person-circle-outline"></ion-icon>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/Account/Index">
+                            <ion-icon class="header-right_img" name="person-circle-outline"></ion-icon>
+                        </a>
+                    }
+                </li>
+                <li class="header-right-items">
+                    <div class="header-right_giohang">
+                        <a href="/cart">
+                            <span class="cart-img"></span>
+                            @{
+                                // Lấy dữ liệu từ Session và ép kiểu nếu cần
+                                var soluong = Session["SoLuong"] != null ? (int)Session["SoLuong"] : 0;
+                            }
+                            <span class="bage">@soluong</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="wrapper-menu-modals">
+                <div class="wrapper-icon-menu-modals">
+                    <span class="icon-menu-modals"></span>
+                    <span class="icon-menu-modals"></span>
+                    <span class="icon-menu-modals"></span>
+                </div>
+            </div>
+            @* Phần Modals *@
+            <div class="menu-modals">
+                <div class="menu-modals-inner">
+                    <div class="inner-header border-bottom">
+                        <span class="close">&#10005;</span>
+                    </div>
+                    <div class="innder-container mt-4">
+                        <div class="render-modal content container-fluid text-center ">
+                            @Html.Action("_PartialMenuItems", "Parital")
+                        </div>
+                        <div class="footer-modal bg-black" style=" width: 100%; height: 160px; position: absolute; bottom: -180px; margin: 0 -20px">
+                            @Html.Action("_PartialSocialFooter", "Parital")
+                            <hr class="mt-3 mb-3" style=" color: white; background-color: white;" />
+                            <p class="text-footer position-relative top-0">Copyright © 2023 KFC Vietnam</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @* Content of Website *@
+    <div style="top: 103px; padding: 0;" class="container-fluid position-relative">
+        @RenderBody()
+    </div>
+    <footer class="footer-main container-fluid position-relative bottom-0 start-0 ">
+        <section style=" padding: 50px 15px 20px;" class="container text-center">
+            <div class="d-flex flex-wrap justify-content-center">
+                @Html.Action("_PartialMenuItems", "Parital")
+            </div>
+            <div style="height: 55px" class="social-footer d-flex justify-content-between align-items-center">
+                <p class="text-footer">Copyright © 2023 KFC Vietnam</p>
+                @Html.Action("_PartialSocialFooter", "Parital")
+            </div>
+            <hr class="mt-3 mb-3" style=" color: white; background-color: white;" />
+            <div class="row text-light">
+                <div class="col-6 text-start badges" style="color: #ababab; ">
+                    <h2 style="font-size: 26px; line-height: 34px; margin-bottom: 22px; font-family: 'Oswald-SemiBold'; ">CÔNG TY LIÊN DOANH TNHH KFC VIỆT NAM</h2>
+                    <p class="mb-0">Số 292 Bà Triệu, P. Lê Đại Hành, Q. Hai Bà Trưng, TP. Hà Nội.</p>
+                    <p class="mb-0">Điện thoại: (028) 38489828</p>
+                    <p class="mb-0">Email: lienhe@kfcvietnam.com.vn</p>
+                    <p class="mb-0">Mã số thuế: 0100773885</p>
+                    <p class="mb-0">Ngày cấp: 29/10/1998 - Nơi cấp: Cục Thuế Thành Phố Hà Nội</p>
+                </div>
+                <div class="col-6">
+                    <img class="position-relative top-50  translate-middle-y" src="https://kfcvn-static.cognizantorderserv.com/images/email/logo_footer.png" />
+                </div>
+            </div>
+        </section>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/Site.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿@font-face {
+    font-family: 'Roboto-Bold';
+    src: url('https://static.kfcvietnam.com.vn/fonts/Roboto-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Oswald-SemiBold';
+    src: url('https://static.kfcvietnam.com.vn/fonts/Oswald-SemiBold.woff');
+}
+/*Part Content - DANH MỤC MÓN ĂN*/
+.container-custom {
+    font-family: 'Oswald-SemiBold';
+    position: relative;
+    top: 0px;
+    padding: 27px;
+    margin-bottom: 18px;
+}
+
+.content_menu_title {
+    position: relative;
+    justify-self: flex-start;
+    margin: 21px 0 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+}
+
+.content_menu_title .menu-title {
+    background: #fff;
+    display: inline-block;
+    position: relative;
+    padding-right: 16px;
+    margin-left: 8px
+}
+
+.content_menu_title::before {
+    position: absolute;
+    content: "";
+    background: rgba(0,0,0,.1);
+    height: 2px;
+    width: 98%;
+    top: calc(50% - 2px);
+    margin-left: 8px
+}
+
+.card-custom {
+    border-radius: 10px;
+    box-shadow: 0 1px 6px 0 rgba(0,0,0,.2)
+}
+
+.card-text {
+    color: #202124;
+    font-size: 20px
+}
+
+.wrapper-img {
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.menu-list a {
+    padding: 0 10px;
+    text-align: left;
+    font-size: 18px;
+    transition: all .2s ease-in;
+    text-decoration: none;
+}
+
+.menu-list a:hover {
+    color: crimson;
+}
+
+.card .wrapper-img img {
+    height: 223px;
+    width: 100%;
+    transition: all .7s;
+    -webkit-transition: all .7s;
+}
+
+.card .wrapper-img img:hover {
+    transform: scale(1.1);
+}
+
+/* Part content like */
+.icon-menu-like {
+    background: url('https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0') no-repeat -3px -800px;
+    width: 50px;
+    height: 78px;
+}
+.menu-like {
+    font-family: 'Roboto-Bold';
+    overflow: hidden;
+    flex-wrap: nowrap;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.card-menu-like {
+    height: 496px;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
+}
+
+.wrapper-title-card {
+    margin-bottom: 10px;
+}
+
+.wrapper-title-card h4 {
+    font-size: 18px
+}
+
+.card-text-menu-like {
+    color: #6b6e79;
+    font-size: 14px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.card-body-custom {
+    position: relative;
+}
+
+.btn-custom {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0.85714286rem 1.71428571rem;
+    background-color: #ccc;
+    border: none;
+    line-height: 14px;
+    font-size: 15px;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    border-radius: 25px;
+    width: 90%;
+    transition: all .2s linear;
+}
+
+.btn-custom:hover {
+    color: #fff;
+    background-color: #e4002b;
+    box-shadow: 0 2px 4px 2px rgba(0,0,0,0.5);
+}

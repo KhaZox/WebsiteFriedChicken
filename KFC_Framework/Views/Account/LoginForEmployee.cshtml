@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "LoginForEmployee";
+    Layout = "~/Views/Shared/_Layout_LoginEmployee.cshtml";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .form_input.has-value ~ .form-label {
+        top: -1px;
+        font-size: 0.8em;
+    }
+    .form-login {
+        width: 400px;
+        height: 400px;
+        /*margin: 50px auto;*/
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        color: #fff;
+        -webkit-box-shadow: 0px 0px 105px 45px rgba(98,102,101,0.9);
+        -moz-box-shadow: 0px 0px 105px 45px rgba(98,102,101,0.9);
+        box-shadow: 0px 0px 105px 45px rgba(98,102,101,0.9);
+        background-color: rgba(0,1,2,0.5);
+    }
+
+    .form-login h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-login input[type="text"],
+    .form-login input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .form-login input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        border: none;
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .form-login input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="form-login position-absolute top-50 start-50" style="transform: translate(-50%,-50%)">
+    <h2 class="text-center">WELCOM BACK </h2>
+    <p class="text-center">Please Enter your Account details</p>
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+    @using (Html.BeginForm("LoginEmployee", "Account", FormMethod.Post))
+    {
+        <div>
+            @Html.Label("email", "Username")
+            @Html.TextBox("email", null, new { @class = "form_input", required = "required" })
+        </div>
+        <div>
+            @Html.Label("password", "Password")
+            @Html.Password("password", null, new { @class = "form_input input-password", required = "required" })
+        </div>
+        <div>
+            <input  type="submit" value="Đăng nhập" />
+        </div>
+    }
+</div>
+

@@ -1,0 +1,119 @@
+﻿@model KFC_Framework.Models.SanPham
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+@using (Html.BeginForm("Edit", "managerProduct", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <h2>Edit</h2>
+        <hr />
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaLH, "MaLH", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.DropDownList("MaLH", (IEnumerable<SelectListItem>)ViewBag.LoaiHangList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaLH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaGG, "MaGG", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.DropDownList("MaGG", (IEnumerable<SelectListItem>)ViewBag.GiamGiaList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaGG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.MaSP)
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.TenSP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.GiaBanSP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.GiaBanSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaBanSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MoTaSP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MoTaSP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MoTaSP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="mb-3 row">
+                @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <label for="fileAnh"> Chọn Ảnh</label>
+                    @Html.EditorFor(model => model.HinhAnh, new { htmlAttributes = new { @class = "user-input d-none", type = "file", id = "fileAnh", name = "HinhAnh" } })
+                    @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                    <img src="@Model.HinhAnh" style="width: 500px"/>
+                </div>
+            </div>*@
+
+
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                <label style="cursor: pointer" for="fileAnh" class="fw-bold align-middle border border-1 rounded-2 p-2 pe-auto">Import Image<ion-icon class="align-middle ms-2" name="image"></ion-icon></label>
+                @Html.EditorFor(model => model.HinhAnh, new { htmlAttributes = new { @class = "user-input d-none", type = "file", id = "fileAnh", name = "HinhAnh" } })
+                @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                <img id="previewImage" src="#" alt="Preview Image" style="display:none; max-width: 100%; max-height: 200px;" />
+            </div>
+        </div>
+
+
+        <div class="mb-3 row">
+            <div class="col-sm-2">&#160;</div>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-danger fw-bold">SAVE</button>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-2">&#160;</div>
+            <div class="col-sm-10">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function displayFileName(input) {
+            const fileName = input.files[0].name;
+            document.getElementById('fileNameDisplay').innerText = fileName;
+        }
+    </script>
+    <script>
+        document.getElementById('fileAnh').addEventListener('change', function (event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('previewImage').style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    </script>
+}

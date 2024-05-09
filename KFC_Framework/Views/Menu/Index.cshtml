@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewData["Title"] = "Menu";
+
+}
+<main>
+    @Html.Action("_PartialHeaderSub", "Parital")
+    <nav id="navbar-tab-menu" class="navbar bg-body-tertiary mb-4 justify-content-sm-around border-bottom">
+        <ul class="nav nav-pills  nav-tab-menu-list">
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link activer" href="#hot-deal">ƯU ĐÃI</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#new-product">MÓN MỚI</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#for-one">COMBO 1 NGƯỜI</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#sharing">COMBO NHÓM</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#fried-rosted-chicken">GÀ RÁN - GÀ QUAY</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#burger---rice">BURGER - CƠM - MÌ Ý</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#snack">THỨC ĂN NHẸ</a>
+            </li>
+            <li class="nav-item nav-tab-menu-items">
+                <a class="nav-link nav-tab-menu-link" href="#dessert-and-drink">THỨC UỐNG & VÀ TRÁNG MIỆNG</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div data-bs-spy="scroll" data-bs-target="#navbar-tab-menu" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2 container-xl content-tab-menu" tabindex="0">
+        <div class="row gx-2">
+            @model Dictionary<string, List<KFC_Framework.Models.SanPham>>
+            @foreach (var category in Model)
+            {
+                <h4>
+                    @if (category.Key == "LH001")
+                    {
+                        <span id="hot-deal">ƯU ĐÃI</span>
+                    }
+                    else if (category.Key == "LH002")
+                    {
+                        <span id="new-product">Món mới</span>
+                    }
+                    else if (category.Key == "LH003")
+                    {
+                        <span id="for-one">COMBO 1 NGƯỜI</span>
+                    }
+                    else if (category.Key == "LH004")
+                    {
+                        <span id="sharing">COMBO NHÓM</span>
+                    }
+                    else if (category.Key == "LH005")
+                    {
+                        <span id="fried-rosted-chicken">GÀ RÁN - GÀ QUAY</span>
+                    }
+                    else if (category.Key == "LH006")
+                    {
+                        <span id="burger---rice">BURGER - CƠM - MÌ Ý</span>
+                    }
+                    else if (category.Key == "LH007")
+                    {
+                        <span id="snack">THỨC ĂN NHẸ</span>
+                    }
+                    else if (category.Key == "LH008")
+                    {
+                        <span id="dessert-and-drink">THỨC UỐNG & TRÁNG MIỆNG</span>
+                    }
+                </h4>
+                <div class="row">
+                    @foreach (var product in category.Value)
+                    {
+                        <div class="card card-menu col-3 px-1 mx-1 rounded-0 mt-2 mb-2" style="width: 265px;">
+                            <div style="margin: 8px 4px 0; overflow: hidden;">
+                                <a href="@Url.Action("Detail_menu", "Menu", new { id = product.MaSP, lh= product.MaLH })">
+                                    <img  src="@Url.Content(product.HinhAnh)" class="card-img-top img-menu-item rounded-0" alt="..." style="object-fit:cover;max-height: 205.08px">
+                                </a>
+                            </div>
+                            <div class="desc hide">
+                                <p>@product.MoTaSP</p>
+                            </div>
+                            <span class="close-detail-menu">&#161;</span>
+                            <div class="card-body card-body-menu position-relative">
+                                <div class="d-flex justify-content-between mb-2" style="font-family: 'Roboto-Bold'; line-height: 22px; font-size: 18px;">
+                                    <h5 class="card-title" style="min-height:48px">@product.TenSP</h5>
+                                    <div class="price d-flex flex-column align-items-end ms-2">
+                                        <span>@string.Format("{0:N0}", @product.GiaBanSP).Replace(",", ".")₫</span>
+                                        <!-- Add logic for discount price if needed -->
+                                    </div>
+                                    
+                                </div>
+                                <p style="font-size: 14px; color: #202124; min-height: 64px; overflow: hidden;" class="card-text mb-3">@product.MoTaSP</p>
+                                <a class="btn btn_dathang btn-dathang-menu" onclick="window.location.href='@Url.Action("AddToCart", "Menu" , new { id = product.MaSP })'">Thêm</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</main>
+@section css{
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/partialStyle.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Menu.css">
+}
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Menu.js"></script>
+    <script>
+        $('.close-detail-menu').click(function () {
+            var cardIndex = $(this).index('.close-detail-menu');
+
+            var currentState = $(this).data('toggle-state') || 'closed';
+            if (currentState === 'closed') {
+                $(this).html('&#215;');
+                currentState = 'open';
+            } else {
+                $(this).html('&#161;');
+                currentState = 'closed';
+            }
+            $(this).data('toggle-state', currentState);
+
+            var description = $('.desc').eq(cardIndex);
+            description.toggleClass('hide');
+        });
+    </script>
+}

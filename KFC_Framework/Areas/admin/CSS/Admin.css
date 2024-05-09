@@ -1,0 +1,77 @@
+﻿/*Content Table*/
+.control-padding {
+    padding: 2px 6px;
+}
+
+.bg-success-order {
+    background-color: #D4F8D3;
+}
+
+.bg-notreceived-order {
+    background-color: #F8F4D3;
+}
+
+.bg-process-order {
+    background-color: #EDE7FB;
+}
+
+.bg-shipping-order {
+    background-color: #E7EDFF;
+}
+
+.bg-admin {
+    background-color: #DE6767
+}
+
+.bg-staff {
+    background-color: #025E86
+}
+
+.bg-staff--warehouse {
+    background-color: #16ae66
+}
+
+.bg-customer {
+    background-color: #1F2124
+}
+
+.dataTables_scrollBody::-webkit-scrollbar {
+    width: 0px;
+    background-color: #F5F5F5;
+}
+
+
+#discountTable_filter label,
+#accountTable_filter label,
+#orderTable_filter label,
+#productTable_filter label,
+#saleTable_filter label,
+#warehouseTable_filter label {
+    font-weight: bold;
+}
+
+#discountTable_filter input,
+#accountTable_filter input,
+#orderTable_filter input,
+#productTable_filter input,
+#saleTable_filter input,
+#warehouseTable_filter input {
+    border: 1px solid #ccc;
+    border-radius: 10px
+}
+
+#discountTable thead tr th::after:nth-child(2),
+#discountTable thead tr th:nth-child(2)::before,
+#accountTable thead tr th::after:nth-child(2),
+#accountTable thead tr th:nth-child(2)::before {
+    display: none
+}
+
+
+.custom-select {
+    width: 50% !important
+}
+
+.action form {
+    display: inline-block
+}

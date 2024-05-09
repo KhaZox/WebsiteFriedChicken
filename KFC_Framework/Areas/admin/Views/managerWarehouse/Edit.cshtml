@@ -1,0 +1,67 @@
+﻿@model KFC_Framework.Models.ChiTietKho
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="container">
+        <hr />
+        <h2 class="text-center">Edit</h2>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*@Html.HiddenFor(model => model.MaKho)
+
+        @Html.HiddenFor(model => model.MaNVL)*@
+
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaKho,"Mã Kho", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaKho, new { htmlAttributes = new { @class = "form-control", disabled="true" } })
+                @Html.ValidationMessageFor(model => model.MaKho, "", new { @class = "text-danger" })
+            </div>
+        </div>
+                <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaNVL, "Mã Nguyên Vật Liệu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaNVL, new { htmlAttributes = new { @class = "form-control", disabled="true" } })
+                @Html.ValidationMessageFor(model => model.MaNVL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.DVT,"Đơn Vị Tính", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DVT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DVT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.SoLuongT,"Số Lượng Tồn", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-sm-2">&#160;</div>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-danger fw-bold">SAVE</button>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-2">&#160;</div>
+            <div class="col-sm-10">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}

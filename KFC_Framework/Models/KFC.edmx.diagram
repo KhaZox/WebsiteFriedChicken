@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ff6330f2641d4ab19b05894ed772efbe" Name="Diagram1">
+        <EntityTypeShape EntityType="KFCModel.ChiTietNVL" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.CTDonDatHang" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.CTHoaDon" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.DonDatHang" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.GiamGia" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.HoaDon" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.KhachHang" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.Kho" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.LoaiHang" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.NguyenVL" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.NhanVien" Width="1.5" PointX="0.75" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.SanPham" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KFCModel.TaiKhoan" Width="1.5" PointX="1.5" PointY="13.25" IsExpanded="true" />
+        <AssociationConnector Association="KFCModel.FK_CTNVL_NVL_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_NVL_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_CTDDH_DDH" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_CTDDH_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_CTHD_HD" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_CTHD_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_DDH_KH" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_HD_DDH" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_SP_GG" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_HD_NV" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_TK_KH" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_SP_LH" ManuallyRouted="false" />
+        <AssociationConnector Association="KFCModel.FK_TK_NV" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KFCModel.ChiTietKho" Width="1.5" PointX="10" PointY="0.75" />
+        <AssociationConnector Association="KFCModel.FK_CTK_K" />
+        <AssociationConnector Association="KFCModel.FK_CTK_NVL" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

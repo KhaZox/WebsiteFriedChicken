@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form_input.has-value ~ .form-label {
+        top: -1px;
+        font-size: 0.8em;
+    }
+</style>
+<div class="container text-center wrapper_login">
+    <div class="row">
+        <div class="col-6 login_img" style="background-color: #e21e2d; padding: 0">
+            <img class="img_login_shop" src="https://static.kfcvietnam.com.vn/images/web/signin/lg/signin.jpg?v=XgqM7g" />
+        </div>
+        <div class="col-6 wrapper-control-login">
+            <form action="@Url.Action("Login", "Account")" method="post" class="text-start form-login form">
+                <h2 class="login_title">Đăng nhập</h2>
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                }
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                {
+                    <div class="Body_form mt-4">
+                        @Html.TextBox("email", null, new { @class = "form_input", required = "required" })
+                        <label class="form-label">Địa chỉ Email của bạn</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form mt-4">
+                        @Html.Password("password", null, new { @class = "form_input input-password", required = "required" })
+                        <label class="form-label">Mật khẩu</label>
+                        <div class="form-message"></div>
+                        <span class="icon-password"><ion-icon name="eye"></ion-icon></span>
+                    </div>
+                    <div class="Body_form mt-4 text-end">
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgotPassword">Bạn quên mật khẩu?</button>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-custom btn-success">Đăng nhập</button>
+                    </div>
+                }
+            </form>
+            <div class="p-3">
+                <div class="mb-3 text-start">
+                    <h5 style="font-family: 'Oswald-SemiBold'">Hoặc tiếp tục với</h5>
+                </div>
+
+                <form action="@Url.Action("LoginFacebook", "Account")" method="post" class="mb-3">
+                    @Html.AntiForgeryToken()
+                    <button class="btn btn-custom btn-primary" type="submit">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                        Đăng nhập bằng facebook
+                    </button>
+                </form>
+
+                <form action="@Url.Action("Login", "Account")" method="post" class="mb-3">
+                    @Html.AntiForgeryToken()
+                    <button class="btn btn-custom btn-dark" type="submit">
+                        <ion-icon name="logo-apple"></ion-icon>
+                        Đăng nhập bằng apple
+                    </button>
+                </form>
+
+                <form action="@Url.Action("LoginWithGooglePlus", "Account")" method="post">
+                    @Html.AntiForgeryToken()
+                    <button class="btn btn-custom btn-danger" type="submit">
+                        <ion-icon name="logo-google"></ion-icon>
+                        Đăng nhập bằng google
+                    </button>
+                </form>
+
+                <div class="mb-3 text-center">
+                    <span>Bạn chưa có tài khoản? <strong class="text-decoration-underline"><a href="/Account/register">Đăng ký</a></strong></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*Modal forgotPassword*@
+<div class="modal fade" id="forgotPassword" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 10px 20px 8px; border: none">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div style=" font-family: 'Oswald-SemiBold';">
+                    <h3>Bạn quên mật khẩu?</h3>
+                    <h4>Đừng lo lắng, bạn có thể đặt lại dễ dàng</h4>
+                </div>
+                <p>Chúng tôi sẽ gửi cho bạn một email có liên kết để đặt lại mật khẩu <br /> của bạn.</p>
+                <div class="Body_form mt-4">
+                    <input id="inputForgotPassword" name="email" class="form_input" required />
+                    <label class="form-label">Địa chỉ Email của bạn</label>
+                    <div class="form-message"></div>
+                </div>
+            </div>
+            <div class="p-3">
+                <form id="formForgotPassword">
+                    <button type="submit" class="btn-forgotPassword btn btn-custom btn-danger">Gửi Email Đặt lại Mật khẩu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Toast success forgotPassword*@
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999999">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <img src="https://i.pinimg.com/736x/11/bd/84/11bd846efc5dc3c575f9927f7da8a321.jpg" style="width: 40px; height: 40px; object-fit: cover" class="rounded me-2" alt="Yes">
+            <strong class="me-auto">Yêu cầu đặt lại mật khẩu</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Email đặt lại mật khẩu đã được gửi.
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Account.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#formForgotPassword').submit(function (e) {
+                e.preventDefault();
+                var email = $('#inputForgotPassword').val();
+                $.ajax({
+                    url: '/Account/forgotPassword',
+                    type: 'POST',
+                    data: { email: email },
+                    success: function (response) {
+                        $('#forgotPassword').modal('hide');
+                        //Toast button success forgotPassword
+                        const toastLiveExample = $('#liveToast');
+                        const toastBootstrap = new bootstrap.Toast(toastLiveExample[0]);
+                        toastBootstrap.show(); 
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}

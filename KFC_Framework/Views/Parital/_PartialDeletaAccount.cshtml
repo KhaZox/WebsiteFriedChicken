@@ -1,0 +1,24 @@
+﻿<style>
+    .form-delete-account ul li {
+        list-style: disc
+    }
+</style>
+@using (Html.BeginForm("DeleteAccount", "Account", new { id = Session["MaTK"] }, FormMethod.Post, new { @class = "text-start form text-dark form-delete-account" }))
+{
+    <h2 class="login_title text-dark">BẠN CÓ CHẮC MUỐN XOÁ TÀI KHOẢN KHÔNG ?</h2>
+    <p>Xóa tài khoản của bạn cũng sẽ xóa vĩnh các viễn thông tin bên dưới.</p>
+    <ul>
+        <li>Đơn đặt hàng trước đây của tôi</li>
+        <li>Đơn đặt hàng yêu thích của tôi</li>
+        <li>Địa chỉ giao hàng đã lưu</li>
+    </ul>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-custom btn-danger">Xóa</button>
+    </div>
+}
+
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+

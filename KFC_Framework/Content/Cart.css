@@ -1,0 +1,162 @@
+﻿.cart {
+    padding: 35px 15px 40px;
+}
+
+.cart::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 44px;
+    width: 8px;
+    height: 22px;
+    box-shadow: inset 0 0 0 32px #e4002b, -16px 0 #e4002b, 16px 0 #e4002b;
+}
+/*Part Cart-emty*/
+.emty-cart {
+    min-height: 590px;
+    background-size: auto;
+    background: url(https://static.kfcvietnam.com.vn/images/web/empty-cart.png?v=5.0) no-repeat #f8f7f5 right;
+    padding: 2.5rem 2.14285714rem 20.35714286rem;
+    background-size: 60%;
+    letter-spacing: 1px;
+}
+
+.content-emty-cart {
+    width: 360px;
+    height: 259px;
+}
+
+/*Part have Cart*/
+.cart-left {
+    min-height: 196px;
+    background: #fff;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
+}
+
+.cart-left .item-detail.hide {
+    display: none;
+}
+
+.item-detail {
+    color: #929191;
+}
+
+.toggle-detial-item {
+    color: #929191;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.toggle-detial-item ion-icon {
+    color: #000;
+}
+
+.details {
+    padding: 32px 0 0 16px;
+}
+
+.icon-incre {
+    width: 34px;
+    height: 34px
+}
+
+.input-incre {
+    width: 30px;
+    color: #000;
+    text-align: center;
+    border: 0;
+    padding: 0.35714286rem;
+    background: none;
+    font-family: Roboto,sans-serif;
+    font-weight: bold
+}
+
+.cart-left-upsell {
+    font-family: 'Oswald-SemiBold';
+    background: #2d2d2d;
+    border-bottom: 1px solid #494949;
+    padding: 1.78571429rem 1.07142857rem 1.07142857rem;
+    color: #fff;
+}
+
+.upsell-list {
+    max-width: 730px;
+    min-height: 177px;
+    padding-left: 0;
+    /*overflow: scroll;*/
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.71428571rem;
+}
+
+.upsell-list::-webkit-scrollbar {
+    height: 4px;
+    background-color: #F5F5F5;
+}
+
+.upsell-list::-webkit-scrollbar-thumb {
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.upsell-list::-webkit-scrollbar-track {
+    background-color: #5f5f5f;
+}
+
+.upsell-item {
+    display: inline-block;
+    width: 180px;
+    border-radius: 5px;
+    overflow: hidden;
+    vertical-align: top;
+    position: relative;
+    margin-right: 14px;
+}
+
+.upsell-item:hover .upsell-item-content {
+    /*transition: all ease-in .3s;*/
+    top: 55%;
+}
+
+.upsell-item-content {
+    position: absolute;
+    top: 64%;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    transition-property: top;
+    transition-duration: .3s;
+    background-image: linear-gradient(180deg,rgba(0,0,0,0) 0,#000);
+}
+
+.upsell-icon,
+.upsell-icon ion-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    color: #e4002b;
+    font-size: 42px;
+    cursor: pointer;
+}
+
+.cart-right {
+    min-height: 402px;
+    background: #fff;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
+    position: sticky;
+    top: 150px;
+}
+
+/*Part Button discount*/
+.btn-discount {
+    width: 150px;
+    height: 36px;
+    line-height: 1;
+    padding: 0;
+    background-color: #000
+}
+
+.btn-discount:hover {
+    background-color: #000;
+    color: #fff
+}

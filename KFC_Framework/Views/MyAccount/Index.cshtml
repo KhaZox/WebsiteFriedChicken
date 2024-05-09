@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container text-center account wrapper_login" style="padding: 40px 15px">
+    <div class="row text-center">
+        <div class="col col-4 account-tab">
+            <div class="account-profile text-start">
+                <h2>XIN CHÀO, <br />Kha</h2>
+                <p class="text-decoration-underline text-light">Đăng xuất</p>
+            </div>
+            <div class="list-group text-start mt-4">
+                <a href="#my_order" class="list-group-item list-group-item-action" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="my_order">Đơn hàng đã đặt</a>
+                <a href="#" class="list-group-item list-group-item-action">Địa chỉ của bạn</a>
+                <a href="#detail" class="list-group-item active list-group-item-action" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="detail">Chi tiết tài khoản</a>
+                <a href="#reset_password" class="list-group-item test list-group-item-action" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="reset_password">Đặt lại mật khẩu</a>
+                <a href="#delete_account" class="list-group-item list-group-item-action" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="delete_account">Xóa tài khoản</a>
+            </div>
+        </div>
+        <div class="col col-8 account-items-render ">
+            <form class="text-start form collapse" id="detail">
+                <h2 class="login_title text-dark">CHI TIẾT TÀI KHOẢN</h2>
+                <div class="Body_form mt-4">
+                    <input class="form_input" id="lastname" name="lastname" rules="required" type="text" value="Kha">
+                    <label for="lastname" class="form-label">Họ của bạn</label>
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    <input class="form_input" id="name" name="name" rules="required" type="text">
+                    <label for="name" class="form-label">Tên của bạn</label>
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    <input class="form_input" id="phone" name="phone" rules="required|numeric|min:9" type="text">
+                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    <input class="form_input" id="email" name="email" rules="required|email" type="email">
+                    <label for="phone" class="form-label">Địa chỉ email của bạn</label>
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    <select class="form-select" aria-label="Default select example" style="border: none; padding-left: 5px">
+                        <option selected>Chọn giới tính</option>
+                        <option value="1">Nam</option>
+                        <option value="0">Nữ</option>
+                    </select>
+                </div>
+                <div class="Body_form mt-4">
+                    <input class="form_input" id="date" name="date" type="date">
+                    <label for="phone" class="form-label form-label-option">Ngày sinh của bạn(tùy chọn)</label>
+                    <div class="form-message"></div>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-custom btn-danger">Cập nhật tài khoản</button>
+                </div>
+            </form>
+            <div class="collapse" id="reset_password">@Html.Action("_PartialReset_Password", "Parital")</div>
+            <div class="collapse" id="delete_account">@Html.Action("_PartialDeletaAccount", "Parital")</div>
+            <div class="collapse" id="my_order">@*@Html.Action("_PartialEmtyCart", "Parital")*@</div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Account.js"></script>
+    <script>
+        var form = new Validator('.form')
+        form.onSubmit = function (formData) {
+            console.log(formData)
+        }
+    </script>
+}

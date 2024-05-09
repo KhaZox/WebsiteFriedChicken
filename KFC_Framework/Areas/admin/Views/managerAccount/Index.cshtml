@@ -1,0 +1,139 @@
+﻿@model IEnumerable<KFC_Framework.Models.TaiKhoan>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+<table id="accountTable" class="table-sm table table-striped table-light table-hover custom-thead-color">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">
+                Tên Đăng Nhập
+            </th>
+            <th scope="col">
+                Mật khẩu
+            </th>
+            <th scope="col">
+                Quyền
+            </th>
+            <th scope="col">
+                Ngày tạo
+            </th>
+            <th scope="col">&#160;</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider align-middle">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenDangNhap)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatKhau)
+                </td>
+                <td>
+                    @switch (item.LoaiTK)
+                    {
+                        case "Admin":
+                            <span class="status bg-admin fw-medium text-light rounded-4 py-1 px-3">@item.LoaiTK</span>
+                            break;
+                        case "Nhân viên":
+                            <span class="status bg-staff fw-medium text-light rounded-4 py-1 px-3">@item.LoaiTK</span>
+                            break;
+                        case "Khách hàng":
+                            <span class="status bg-customer fw-medium text-light rounded-4 py-1 px-3">@item.LoaiTK</span>
+                            break;
+                        case "Nhân viên kho":
+                            <span class="status bg-staff--warehouse fw-medium text-light rounded-4 py-1 px-3">@item.LoaiTK</span>
+                            break;
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayTao)
+                </td>
+                <td>
+
+                    @Html.ActionLink(" ", "Edit", new { id = item.MaTK }, new { @class = "action-link bi bi-pencil", @style = "margin-right: 10px; text-decoration: none;" })
+
+
+                    <button type="button" class="btn btn-danger rounded-circle rounded-5 control-padding" data-bs-toggle="modal" data-bs-target="#deleteModal_@item.MaTK">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <div class="modal fade" id="deleteModal_@item.MaTK" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Xóa tài khoản</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có muốn xóa tài khoản @item.TenDangNhap</p>
+                                </div>
+                                <div>
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    @using (Html.BeginForm("Delete", "managerAccount", new { id = item.MaTK }, FormMethod.Post))
+                                    {
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section css{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Areas/admin/CSS/Admin.css">
+
+}
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+
+
+        $(document).ready(() => {
+            $('#accountTable').DataTable({
+                            columnDefs: [{ orderable: false, targets: 4 }],
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true,
+                processing: true,
+                lengthMenu: [10, 25, 50, 100],
+                responsive: true,
+            })
+        })
+
+        $(document).ready(function () {
+            function createNew() {
+                window.location.href = '@Url.Action("Create")';
+            }
+
+            var button = $('<button>', {
+                id: 'btnAddUser',
+                class: 'btn btn-warning text-light-emphasis fw-bold me-2 ',
+                text: '+ Thêm người dùng',
+                click: createNew
+            });
+
+            $('#accountTable_filter').prepend(button);
+        });
+    </script>
+
+}

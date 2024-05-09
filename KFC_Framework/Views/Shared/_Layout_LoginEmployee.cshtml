@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+    @RenderSection("css", false)
+</head>
+<body>
+    <style>
+        #main {
+            height: 100vh;
+
+        }
+        .main_img {
+            max-height: 100%;
+            width: 100%;
+            max-width: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <div id="main" class="d-flex justify-content-center align-items-center" style="" >
+        <img class="main_img" src="https://i.pinimg.com/564x/f1/f9/15/f1f91526076da34a5d521cd901ca60d4.jpg"/>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/Site.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
+
+

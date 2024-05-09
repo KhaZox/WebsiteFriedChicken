@@ -1,0 +1,418 @@
+﻿
+@font-face {
+    font-family: 'Roboto-Bold';
+    /*src: url('https://static.kfcvietnam.com.vn/fonts/Roboto-Bold.ttf');*/
+    src: url('/Content/fonts/Roboto-Bold.woff')
+}
+
+@font-face {
+    font-family: 'Oswald-SemiBold';
+    /*src: url('https://static.kfcvietnam.com.vn/fonts/Oswald-SemiBold.woff');*/
+    src: url('/Content/fonts/Oswald-SemiBold.woff')
+}
+
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*font-family: 'Oswald-SemiBold';*/
+}
+  
+ul, li {
+    list-style: none;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+body {
+    width: 100%;
+}
+
+body::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+/*Layout main*/
+/*Phần header*/
+header {
+    font-family: 'Roboto-Bold';
+    background-color: #fff;
+    height: 103px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 43px;
+    z-index: 1000;
+    border-bottom: 1px solid #ccc;
+}
+
+/*Header Left: Logo - Navigation*/
+header .header-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+header #logo {
+    width: 78px;
+    height: 78px;
+    margin-right: 10px
+}
+
+.header-left .nav {
+    display: inline-block;
+}
+
+.header-left .nav-items {
+    position: relative;
+    display: inline-block;
+}
+
+.header-left .nav-items * {
+    display: block;
+    padding: 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    line-height: 40px;
+}
+
+.header-left .nav-items *::before {
+    content: "";
+    transition: all .5s ease;
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    width: 0;
+    background-color: #202124;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    animation: hoverLToR 1s ease-in;
+}
+
+.header-left .nav-items *:hover:before {
+    width: 100%
+}
+
+/* Phần header right */
+header .header-right {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header-right_giohang {
+    position: relative;
+}
+
+.cart-img {
+    position: relative;
+    width: 30px;
+    height: 43px;
+    background: url(https://static.kfcvietnam.com.vn/images/web/cart.png?v=5.0) no-repeat -8px 1px;
+    background-size: 350%;
+    text-align: center;
+    line-height: 50px;
+    font-family: Roboto,sans-serif;
+    display: block;
+    letter-spacing: -1px;
+    /*-53 cart item*/
+}
+
+.header-right-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 0;
+}
+
+.header-right-items {
+    align-self: center;
+    margin-left: 16px;
+}
+
+.header-right-items .header-right_img {
+    width: 32px;
+    height: 32px;
+}
+
+.bage {
+    position: absolute;
+    color: red;
+    top: 58%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    cursor: pointer;
+}
+/*menu toogle*/
+.wrapper-menu-modals {
+    position: relative;
+    width: 40px;
+    height: 34px;
+    margin-left: 16px
+}
+
+.wrapper-icon-menu-modals {
+    position: absolute;
+    cursor: pointer;
+    width: 26px;
+    height: 32px;
+    top: 0px;
+    left: -4px;
+}
+
+.icon-menu-modals {
+    position: absolute;
+    width: 26px;
+    height: 4px;
+    background-color: #000;
+    cursor: pointer
+}
+
+.icon-menu-modals:nth-child(1) {
+    top: 0px;
+}
+
+.icon-menu-modals:nth-child(2) {
+    top: 10px;
+}
+
+.icon-menu-modals:nth-child(3) {
+    top: 20px;
+}
+
+/*Phần Modals*/
+.menu-modals {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    width: 100%;
+    transition: display .1s ease;
+    display: none;
+    background-color: transparent;
+}
+
+.menu-modals-inner {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 350px;
+    background: #fff;
+    z-index: 100;
+    right: 0;
+    box-shadow: 1px 1px 7px 3px rgba(0,0,0,.3);
+    overflow-y: scroll;
+}
+
+.menu-modals-inner::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+}
+
+.inner-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 36px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #fff;
+    z-index: 2
+}
+
+.inner-header::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 30px;
+    box-shadow: inset 0 0 0 32px #e4002b, -22px 0 #e4002b, 22px 0 #e4002b;
+}
+
+.inner-header .close {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.innder-container {
+    position: relative;
+    top: 36px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.innder-container h5 {
+    font-family: 'Oswald-SemiBold';
+}
+
+/*Button*/
+.btn_dathang {
+    width: 180px;
+    height: 42px;
+    color: #fff;
+    background-color: #e4002b;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 200px;
+    cursor: pointer;
+}
+
+.btn_dathang:hover {
+    color: #fff;
+    background-color: #e4002b;
+    /*box-shadow: 0 4px 2px 0px rgba(0,0,0,0.25);*/
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(45,46,46,0.2);
+    -moz-box-shadow: 0px 0px 10px 2px rgba(45,46,46,0.2);
+    box-shadow: 0px 0px 10px 2px rgba(45,46,46,0.2);
+}
+.btn_dathang--header {
+    opacity: 0;
+    transition: opacity .4s linear;
+}
+
+.btn_dathang--sub {
+    transition: opacity .4s ease-in-out;
+}
+
+/*Render-modal: MenuItems*/
+.render-modal h6 {
+    margin-top: 10px;
+    color: #000
+}
+
+.render-modal .list-group .list-group-item {
+    font-family: ui-sans-serif;
+    color: #202124;
+    transition: all .2s linear;
+    border-bottom: 3px solid transparent;
+}
+
+.render-modal .list-group .list-group-item:hover {
+    color: #202124;
+    opacity: .8;
+    box-shadow: 0 0 8px #fff;
+}
+/*Footer-modal*/
+.footer-modal .modals {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/*foote-modal && footer-layout: 3 gạch*/
+.footer-modal::after,
+.footer-main::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: calc(50% - 9px);
+    width: 12px;
+    height: 30px;
+    box-shadow: inset 0 0 0 32px #fff, -22px 0 #fff, 22px 0 #fff;
+}
+/*Footer-Layout*/
+.footer-main {
+    padding: 0;
+    min-height: 145px;
+    width: 100%;
+    background-color: #202124;
+    top: 103px
+}
+/*footer-menuItems*/
+.menu-items {
+    font-size: 14px;
+    color: #ababab;
+}
+
+.menu-items h6 {
+    font-size: 18px
+}
+
+.menu-items .list-group-item {
+    position: relative;
+    display: block;
+    color: #ababab;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    text-wrap: nowrap;
+    transition: all .2s ease
+}
+
+.menu-items .list-group-item:hover {
+    color: #fff
+}
+
+.menu-items .footer-app-appstore,
+.menu-items .footer-app-ggplay {
+    width: 136px;
+    height: 42px;
+    margin: 10px 0;
+}
+
+.menu-items .footer-app-appstore {
+    background: url(https://static.kfcvietnam.com.vn/images/web/logo_appstore.png) no-repeat;
+    background-size: contain;
+}
+
+.menu-items .footer-app-ggplay {
+    background: url(https://static.kfcvietnam.com.vn/images/web/logo_playstore.png) no-repeat;
+    background-size: contain;
+}
+
+/*footer-layout: text*/
+.text-footer {
+    color: #ABABAB;
+    font-size: 12px;
+    flex: 1;
+    text-align: center;
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-40%);
+}
+/*footer-layout & modal: social-link*/
+.modals .list-group-item,
+.modals .list-group-item:first-child:not(:last-child),
+.modals .list-group-item:last-child:not(:first-child),
+.social-footer .list-group-item,
+.social-footer .list-group-item:first-child:not(:last-child),
+.social-footer .list-group-item:last-child:not(:first-child) {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+}
+
+.modals.list-group-horizontal > .list-group-item + .list-group-item,
+.social-footer .list-group-horizontal > .list-group-item + .list-group-item {
+    border: 1px solid #ccc;
+}
+
+.modals .list-group-item:hover,
+.social-footer .list-group-item:hover {
+    opacity: .8;
+    box-shadow: 0 0 8px #fff;
+}

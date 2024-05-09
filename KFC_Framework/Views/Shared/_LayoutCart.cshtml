@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("css", false)
+</head>
+<body>
+    <style>
+        .header-cart {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+        }
+
+        .logo-kfc {
+            width: 90px;
+            height: 30px;
+            background-size: cover;
+            overflow: hidden;
+        }
+    </style>
+    <header class="d-flex justify-content-around align-items-center mb-3 header-cart container-fluid">
+        <div class="p-2">
+            @Html.ActionLink("Quay lại Menu", "Index", "Menu", null, new { @class = "btn border border-2 border-dark rounded-pill" })
+        </div>
+        <div class="p-2">
+            <a href="/">
+                <img class="logo-kfc" src="https://static.kfcvietnam.com.vn/images/web/kfc-logo-mobile.svg?v=5.0" />
+            </a>
+        </div>
+        <div class="p-2">
+            <ul class="header-right-list">
+                <li class="header-right-items">
+                    <a href="/Account">
+                        <ion-icon class="header-right_img" name="person-circle-outline"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    @* Content of Website *@
+    <div style="top:72px; z-index: 1" class="container position-relative">
+        @RenderBody()
+    </div>
+    <style>
+        .footer-cart {
+            min-height: 145px;
+            width: 100%;
+            background-color: #202124;
+            top: 72px
+        }
+        .footer-cart::after{
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: calc(50% - 9px);
+            width: 12px;
+            height: 30px;
+            box-shadow: inset 0 0 0 32px #fff, -22px 0 #fff, 22px 0 #fff;
+        }
+    </style>
+    <footer class="footer-cart position-relative bottom-0 start-0 d-flex align-items-center justify-content-center">
+        <p style="color: #ABABAB; font-size: 12px">Copyright © 2023 KFC Vietnam</p>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+﻿/*Header-sub*/
+.header-sub {
+    position: relative;
+    top: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 66px;
+    background-color: #202124;
+    padding: 12px 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-header-sub {
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 5px 0 0;
+    margin-right: 15px;
+}
+
+.takeAway-1 {
+    background: url(https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0) no-repeat -137px -765px;
+    width: 40px;
+    display: inline-block;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.takeAway-2 {
+    background: url(https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0) no-repeat -184px -765px;
+    width: 40px;
+    display: inline-block;
+    height: 40px;
+    vertical-align: middle;
+}
+/*Part Slider*/
+.slider-container {
+    width: 100%;
+    height: 440px;
+    margin: 0px auto;
+    position: relative;
+    top: 0px;
+    /*top: 78px;*/
+    left: 0;
+    animation: fadeInAnimation 1s ease-in-out forwards;
+}
+
+.sliders {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.sliders img {
+    width: 100%;
+    height: 440px;
+    position: absolute;
+    object-fit: cover;
+    user-select: none;
+}
+
+.sliders img:not(.active) {
+    top: 0;
+    left: -100%;
+}
+
+@keyframes next1 {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: -100%
+    }
+}
+
+@keyframes next2 {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 0%
+    }
+}
+
+@keyframes prev1 {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: 100%
+    }
+}
+
+@keyframes prev2 {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0%
+    }
+}
+
+.slider-prev,
+.slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: #00000099;
+    width: 42px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 25px 0 rgba(0,0,0,0.5);
+    z-index: 10;
+    color: #999;
+    font-size: 28px;
+}
+
+.slider-next {
+    right: 0;
+    border-radius: 6px 0 0 6px;
+}
+
+.slider-next:hover {
+    color: #ffffff;
+    box-shadow: 0 2px 4px 2px rgba(0,0,0,0.25);
+}
+
+.slider-prev {
+    left: 0;
+    border-radius: 0 6px 6px 0;
+}
+
+.slider-prev:hover {
+    color: #ffffff;
+    box-shadow: 0 2px 4px 2px rgba(0,0,0,0.25);
+}
+
+/*Part Banner*/
+.banner {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    height: 264px;
+    background-size: cover;
+    background-image: url('https://static.kfcvietnam.com.vn/images/content/home/mobileappbanner/lg/banner.jpg?v=LE5pPL');
+}
+
+.wrapper-app {
+    position: absolute;
+    right: 12%;
+    top: 42%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.banner_App {
+    width: 168px;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.banner_App a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ggPlay {
+    background: url('https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0 ') no-repeat -120px -702px;
+    object-fit: cover
+}
+
+.appStore {
+    background: url('https://static.kfcvietnam.com.vn/images/web/sprite.png?v=5.0 ') no-repeat -126px -628px;
+    object-fit: cover
+}
+.wrapper-Account{
+    position: relative;
+    height: 370px;
+}

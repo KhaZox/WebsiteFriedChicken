@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="text-start form">
+    <h2 class="login_title text-dark">CHI TIẾT TÀI KHOẢN</h2>
+    <div class="Body_form mt-4">
+        <input class="form_input" id="lastname" name="lastname" rules="required" type="text" required value="Kha">
+        <label for="lastname" class="form-label">Họ của bạn</label>
+        <div class="form-message"></div>
+    </div>
+    <div class="Body_form mt-4">
+        <input class="form_input" id="name" name="name" rules="required" type="text" required>
+        <label for="name" class="form-label">Tên của bạn</label>
+        <div class="form-message"></div>
+    </div>
+    <div class="Body_form mt-4">
+        <input class="form_input" id="phone" name="phone" rules="required" type="text" required>
+        <label for="phone" class="form-label">Số điện thoại</label>
+        <div class="form-message"></div>
+    </div>
+    <div class="Body_form mt-4">
+        <input class="form_input" id="email" name="email" rules="required|email" type="email" required>
+        <label for="phone" class="form-label">Địa chỉ email của bạn</label>
+        <div class="form-message"></div>
+    </div>
+    <div class="Body_form mt-4">
+        <select class="form-select" aria-label="Default select example" style="border: none; padding-left: 5px">
+            <option selected>Chọn giới tính</option>
+            <option value="1">Nam</option>
+            <option value="0">Nữ</option>
+        </select>
+    </div>  
+    <div class="Body_form mt-4">
+        <input class="form_input" id="date" name="date" rules="required" value="" type="date" required>
+        <label for="phone" class="form-label form-label-option">Ngày sinh của bạn(tùy chọn)</label>
+        <div class="form-message"></div>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-custom btn-danger">Cập nhật tài khoản</button>
+    </div>
+</form>
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+

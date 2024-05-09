@@ -1,0 +1,60 @@
+﻿@if (Model != null && Model.Count > 0)
+{
+    <h2 class="login_title text-dark">ĐƠN HÀNG ĐÃ ĐẶT</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Ngày giao hàng</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Tình trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                int stt = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@stt</th>
+                    <td>@item.MaKH</td>
+                    <td>@item.NgayDH</td>
+                    <td>@item.NgayGH</td>
+                    <td>@item.TriGia</td>
+                    <td>@item.TinhTrang</td>
+                </tr>
+                stt++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <style>
+        .emty-cart {
+            min-height: 380px;
+            background-size: auto;
+            background: url(https://static.kfcvietnam.com.vn/images/web/empty-cart.png?v=5.0) no-repeat #f8f7f5 right;
+            background-size: 50%;
+            letter-spacing: 1px;
+        }
+        .content-emty-cart{
+            width: 200px;
+        }
+    </style>
+    <h2 class="login_title text-dark">ĐƠN HÀNG ĐÃ ĐẶT</h2>
+    <div class="emty-cart position-relative d-flex align-items-center justify-content-start flex-wrap" style="padding: 45px 55px; background-color: #F8F7F5; height: 380px">
+        <div class="content-emty-cart position-absolute">
+            <h2 class="text-dark mb-4" style="font-family: 'Oswald-SemiBold'; font-size: 44px;">BẮT ĐẦU ĐẶT MÓN!</h2>
+            <a href="/Menu" class="btn_dathang">Bắt đầu đặt hàng</a>
+        </div>
+    </div>
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+

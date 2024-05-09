@@ -1,0 +1,310 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCart.cshtml";
+}
+<style>
+    .bg-pay {
+        background-color: #F8F7F5;
+    }
+
+    .total-payment {
+        width: 388px;
+        min-height: 274px;
+        border: 1px solid #ccc;
+        border-radius: 16px;
+        padding: 20px;
+        top: 100px;
+    }
+
+    .option-pay {
+        align-items: center;
+        padding: 4px 10px;
+        width: 100%;
+        height: 45px;
+        background: #000000;
+        border: 1px solid #000000;
+        border-radius: 6px;
+        color: #fff;
+        transition: all ease-in .3s
+    }
+
+        .option-pay:hover {
+            color: #ccc
+        }
+
+    .btn-custom:hover {
+    }
+
+    .activer {
+        background-color: #FF204E !important;
+        color: #000;
+    }
+
+    .option-pay--card {
+        flex: 1;
+        gap: 0;
+        background-color: #fff;
+    }
+
+    .form_input.has-value ~ .form-label {
+        top: -1px;
+        font-size: 0.8em;
+    }
+</style>
+
+<div class="row container m-2 p-2 my-4">
+    <div id="left" class="col col-6">
+        <form id="myForm">
+            <div class="d-flex justify-content-center align-items-center mb-4">
+                <ion-icon style="width: 42px; height: 42px" name="lock-closed"></ion-icon>
+                <h3 style="font-size: 30px; font-weight: bold">THÔNG TIN ĐẶT HÀNG</h3>
+            </div>
+
+            <div class="bg-pay py-3 px-4 mb-4">
+                <h3 style="font-size: 20px; font-weight: bold">THỜI GIAN GIAO HÀNG</h3>
+                <p>Giao ngay</p>
+            </div>
+
+            <div class="bg-pay py-3 px-4 mb-4">
+                <h3 style="font-size: 20px; font-weight: bold">ĐƯỢC GIAO TỪ</h3>
+                <p class="fw-bold">KFC LÊ VĂN VIỆT</p>
+                <p>KFC LÊ VĂN VIỆT</p>
+
+                <div class="Body_form ">
+                        <input class="form_input" id="numHome" name="numHome" rules="required" type="text" required>
+                        <label for="numHome" class="form-label">Số nhà</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="nameStreet" name="nameStreet" rules="required" type="text" required>
+                        <label for="nameStreet" class="form-label">Tên đường</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="contry" name="contry" rules="required" type="text" required>
+                        <label for="contry" class="form-label">Phường/Xã</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="noteOrder" name="noteOrder" rules="required" type="text" required>
+                        <label for="noteOrder" class="form-label">Ghi chú cho đơn hàng</label>
+                        <div class="form-message"></div>
+                    </div>
+            </div>
+
+            <div class="bg-pay py-3 px-4 mb-4">
+                <h3 style="font-size: 20px; font-weight: bold">THÊM THÔNG TIN CHI TIẾT</h3>
+
+                @if (Model.khachHang != null)
+                {
+                    <div class="Body_form ">
+                        <input class="form_input" id="lastName" name="lastName" rules="required" type="text" required value="@Model.khachHang.HoTen">
+                        <label for="lastName" class="form-label">Họ tên của bạn</label>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="nameCustomer" name="nameCustomer" rules="required" type="text" required value="@Model.khachHang.HoTen">
+                        <label for="nameCustomer" class="form-label">Tên của bạn</label>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="phone" name="phone" rules="required" type="text" required value="@Model.khachHang.SoDT">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="email" name="email" rules="required" type="text" required value="@Model.khachHang.Email">
+                        <label for="email" class="form-label">Địa chỉ email</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="Body_form ">
+                        <input class="form_input" id="lastName" name="lastName" rules="required" type="text" required>
+                        <label for="lastName" class="form-label">Họ tên của bạn</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="nameCustomer" name="nameCustomer" rules="required" type="text" required>
+                        <label for="nameCustomer" class="form-label">Tên của bạn</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="phone" name="phone" rules="required" type="text" required>
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <div class="form-message"></div>
+                    </div>
+                    <div class="Body_form ">
+                        <input class="form_input" id="email" name="email" rules="required" type="text" required>
+                        <label for="email" class="form-label">Địa chỉ email</label>
+                        <div class="form-message"></div>
+                    </div>
+                }
+            </div>
+
+            <div class="bg-pay py-3 px-4 mb-4">
+                <h3 style="font-size: 20px; font-weight: bold">PHƯƠNG THỨC THANH TOÁN</h3>
+
+                <input hidden id="COD" value="Thanh toán khi nhận hàng" />
+                <button type="button" id="btnCOD" class=" btn-custom d-flex justify-content-between option-pay fw-bold mb-2 activer">
+                    Thanh toán khi nhận hàng
+                    <ion-icon name="card"></ion-icon>
+                </button>
+
+                <input hidden id="payOnline" value="Thanh toán trực tuyến" />
+                <button type="button" id="btnOnline" class=" btn-custom d-flex justify-content-between option-pay option-pay--card text-dark fw-bold">
+                    Thanh toán bằng ATM/Visa/Master và Ví MoMo
+                    @*<img src="https://static.kfcvietnam.com.vn/images/web/ZaloPay_icon.png" style="width: 52px; height: 37px" />*@
+                    <img src="https://i.pinimg.com/564x/93/1b/11/931b119cf710fb54746d5be0e258ac89.jpg" style="width: 40px; height: 40px"/>
+                </button>
+
+
+            </div>
+
+            <div class="py-3 px-2 mb-3 d-flex justify-content-center">
+                <input class="me-2" style="width: 20px; height: 20px" type="checkbox" />
+                <p style="font-size:12px">Tôi đã đọc và đồng ý với các <strong>Chính Sách Hoạt Động</strong> và <strong>Chính Sách Bảo Mật Thông Tin của KFC Việt Nam</strong></p>
+            </div>
+
+            <button type="submit" class="btn btn-custom btn-success">Đặt hàng</button>
+        </form>
+    </div>
+    <div id="right" class="col col-6">
+        <div class="total-payment position-fixed bg-white">
+            <h3 class="text-center mb-2">TÓM TẮT ĐƠN HÀNG</h3>
+            <hr class="mb-2" />
+            @foreach (var item in Model.Cart)
+            {
+                <div class="mb-2 d-flex justify-content-between">
+                    <p class="fw-bold">@item.name</p>
+                    <p class="fw-bold">@item.Price.ToString("N0") đ</p>
+                </div>
+            }
+            <div class="mb-2">
+                <div class="d-flex justify-content-between">
+                    <p>Tổng đơn hàng</p>
+                    <p id="total-payment-before">@(ViewBag.TotalPayment)</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p>Phí giao hàng</p>
+                    <p>10.000đ</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="fw-bold">Tổng thanh toán</p>
+                    <p class="fw-bold" id="total-payment-after">96.000đ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Account.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            //Button payment
+            $('.option-pay').click(function () {
+                // Xóa lớp active từ tất cả các button
+                $('.option-pay').removeClass('activer');
+
+                // Thêm lớp active vào button được nhấn
+                $(this).addClass('activer');
+            });
+
+            function getPaymentMethod() {
+                var paymentMethod = $('.option-pay.activer').prev('input').val();
+                return paymentMethod;
+            }
+
+            function updatePrice() {
+                const priceElement = document.getElementById('total-payment-before');
+                const productPrice = parseInt(priceElement.textContent.replace("₫", "").replace(".", "").trim()) + 10000;
+                var totalPrice = document.getElementById('total-payment-after');
+                totalPrice.innerText = formatCurrency(productPrice);
+            }
+
+            function formatCurrency(value) {
+                // Chuyển số thành chuỗi và chia thành phần trước và sau dấu chấm
+                let parts = value.toString().split('.');
+
+                // Định dạng phần trước của số
+                parts[0] = parseInt(parts[0]).toLocaleString('vi-VN');
+
+                // Nếu có phần sau dấu chấm, thì định dạng nó
+                if (parts.length > 1) {
+                    parts[1] = parseFloat('0.' + parts[1]).toLocaleString('vi-VN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).split('.')[1];
+                }
+
+                // Kết hợp các phần và thêm ký hiệu tiền tệ
+                return parts.join('.') + "₫";
+            }
+
+            updatePrice();
+
+            $('#myForm').submit(function (event) { // Sử dụng .submit() thay vì .onsubmit()
+                event.preventDefault();
+                var price = document.getElementById('total-payment-after');
+                var productPrice = parseInt(price.textContent.replace("₫", "").replace(".", "").trim())
+                var orderInfo = {
+                    NumHome: $('#numHome').val(),
+                    NameStreet: $('#nameStreet').val(),
+                    Country: $('#contry').val(),
+                    NoteOrder: $('#noteOrder').val(),
+                    LastName: $('#lastName').val(),
+                    NameCustomer: $('#nameCustomer').val(),
+                    Phone: $('#phone').val(),
+                    Email: $('#email').val(),
+                    OrderType: getPaymentMethod(),
+                    TotalPrice: productPrice
+                };
+
+                if (orderInfo.OrderType === "Thanh toán trực tuyến") {
+                    $.ajax({
+                        url: '/Orders/Payment',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(orderInfo),
+                        success: function (response) {
+                            window.location.href = response.link; 
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '/Orders/PayOrders',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(orderInfo),
+                        success: function (response) {
+                            console.log('Success:', response);
+                            $('#left').hide();
+                            $('.container').empty().css({
+                                'width': '100vw',
+                                'height': '70vh',
+                                'position': 'relative',
+                                'top': '70px',
+                                'left': '0',
+                                'z-index': '1000',
+                                'display': 'flex',
+                                'justify-content': 'center',
+                                'align-items': 'center',
+                                'color': 'Black',
+                                'font-size': '1.5em'
+                            }).append(
+                                '<div id="left" ><div><svg style="width: 20%; height: 20%; position: relative; left: 50%; transform: translateX(-50%); " version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox = "0 0 50 50" xml: space = "preserve" > <circle style="fill:#25AE88;" cx="25" cy="25" r="25"/> <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="38,15 22,33 12,25 "/> </svg ></div> <p style="text-align: center">Đặt hàng thành công.<br />Mã đơn đặt hàng của bạn là: ' + response.orderCode + '</p></div>').show();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

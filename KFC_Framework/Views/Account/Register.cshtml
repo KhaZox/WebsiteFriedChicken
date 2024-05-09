@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form_input.has-value ~ .form-label {
+        top: -1px;
+        font-size: 0.8em;
+    }
+</style>
+<div class="container text-center wrapper_login">
+    <div class="row">
+        <div class="col-6 login_img" style="background-color: #e21e2d; padding: 0">
+            <img class="img_login_shop" src="https://static.kfcvietnam.com.vn/images/web/signin/lg/signin.jpg?v=XgqM7g" />
+        </div>
+        <div class="col-6 wrapper-control-login">
+            @model KFC_Framework.DTO.KhachHangCreate
+            <form action="@Url.Action("Register", "Account")" method="post" class="text-start form-login form">
+                <h2 class="login_title">TẠO TÀI KHOẢN</h2>
+                <div class="Body_form mt-4">
+                    @Html.TextBoxFor(model => model.Ho,"Họ", new { @class = "form_input", id = "lastname", rules = "required" })
+                    @Html.LabelFor(model => model.Ho, new { @class = "form-label" })
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    @Html.TextBoxFor(model => model.Ten,"Tên", new { @class = "form_input", id = "name", rules = "required" })
+                    @Html.LabelFor(model => model.Ten, new { @class = "form-label" })
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    @Html.TextBoxFor(model => model.SoDT,"Số Điện Thoại", new { @class = "form_input", id = "phone", rules = "required" })
+                    @Html.LabelFor(model => model.SoDT, new { @class = "form-label" })
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form_input", id = "email", rules = "required|email" })
+                    @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                    <div class="form-message"></div>
+                </div>
+                <div class="Body_form mt-4">
+                    @Html.TextBoxFor(model => model.MatKhau,"Mật Khẩu", new { @class = "form_input input-password", id = "password", rules = "required|min:6", type = "password" })
+                    @Html.LabelFor(model => model.MatKhau, new { @class = "form-label" })
+                    <div class="form-message"></div>
+                    <span class="icon-password"><ion-icon name="eye"></ion-icon></span>
+                </div>
+                <div class="Body_form Body_form-cr form-check mt-4">
+                    <input type="checkbox" id="checkbox" class="form-check-input" name="checkbox" rules="checkbox">
+                    <label class="form-check-label" for="checkbox">
+                        Tôi đã đọc và đồng ý với các <strong>Chính Sách Hoạt Động</strong> và <strong>Chính Sách Bảo Mật Thông Tin của KFC Việt Nam.</strong>
+                    </label>
+                    <div class="form-message"></div>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-custom btn-danger">Tạo Tài Khoản</button>
+                </div>
+                <div class="mb-3 text-center">
+                    <span>Bạn đã có tài khoản? <strong class="text-decoration-underline"><a href="/Account">Đăng nhập</a></strong></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Account.js"></script>
+}

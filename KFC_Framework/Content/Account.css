@@ -1,0 +1,186 @@
+﻿
+.wrapper_login {
+    position: relative;
+    top: 0px;
+    left: 0;
+    animation: fadeInAnimation 1s ease-in-out forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.img_login_shop {
+    min-height: 50px;
+    height: 556px;
+    width: 100%;
+}
+
+.wrapper-control-login {
+    padding: 0;
+}
+
+.form-login {
+    padding: 40px 16px 16px;
+}
+
+.login_title {
+    font-family: 'Oswald-SemiBold';
+    text-transform: uppercase;
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: 16px;
+}
+
+/*Part Input*/
+.icon-password {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer
+}
+
+.Body_form {
+    position: relative;
+    width: 100%;
+    margin: 30px auto;
+}
+
+.Body_form .form-label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #202124;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: .2s ease;
+}
+.Body_form .form-label-option,
+.form_input:focus ~ .form-label,
+.form_input[value]:not([value=""]) ~ .form-label {
+    top: -1px;
+    font-size: 0.8em;
+}
+.Body_form .form_input {
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0px 35px 0px 5px;
+    color: #202124;
+    border-bottom: 1px solid #949494;
+}
+.form_input:focus,
+.form_input:hover {
+    border-color: #e4002b
+}
+.form_input::placeholder {
+    color: #a09a9a;
+}
+.invalid .form_input {
+    border-color: #f33a58;
+}
+
+.Body_form.invalid .form-message {
+    color: #f33a58;
+}
+
+.form-message {
+    position: absolute;
+    color: #e4002b
+}
+
+/*Part Button in account*/
+.btn-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 47px;
+    border-radius: 25px;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    color: #fff;
+    font-weight: 700;
+    transition: all .2s linear;
+}
+
+.btn-custom:hover {
+    color: #000;
+    opacity: .9;
+}
+
+/*Part details acccount*/
+.account {
+    font-size: 14px;
+    color: #ababab;
+}
+
+.account-profile {
+    font-family: 'Oswald-SemiBold';
+}
+
+.account-profile::before {
+    content: "";
+    display: inline-block;
+    background: url(https://static.kfcvietnam.com.vn/images/web/profile-circle.png?v=5.0) no-repeat;
+    margin: 0 20px 15px 0;
+    width: 86px;
+    height: 87px
+}
+
+.account-profile h2 {
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 28px;
+}
+
+.account .list-group-item {
+    position: relative;
+    display: block;
+    color: #ababab;
+    text-decoration: none;
+    background-color: transparent;
+    padding: 16px 0;
+    border: none;
+    text-wrap: nowrap;
+    transition: all .2s ease
+}
+
+.list-group-item.active {
+    color: #fff
+}
+
+.account .list-group-item:hover {
+    color: #fff
+}
+
+.account-tab {
+    position: relative;
+    background-color: #202124;
+    border-radius: 10px;
+    padding: 70px 55px 55px;
+    height: 568px;
+}
+
+.account-tab::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 96px;
+    width: 12px;
+    height: 30px;
+    box-shadow: inset 0 0 0 32px #e4002b, -22px 0 #e4002b, 22px 0 #e4002b;
+}
+
+.account-items-render {
+    padding-left: 50px;
+}

@@ -1,0 +1,118 @@
+﻿<form class="text-start form" id="accountDetail">
+    <h1 id="NotiUpdate" style="display:none;color:red"></h1>
+    @if (Model != null)
+    {
+        <h2 class="login_title text-dark">CHI TIẾT TÀI KHOẢN</h2>
+        <div class="Body_form mt-4">
+            <input class="form_input" id="lastname" name="lastname" rules="required" type="text" value="@Model.HoTen">
+            <label for="lastname" class="form-label">Họ của bạn</label>
+            <div class="form-message"></div>
+        </div>
+        <div class="Body_form mt-4">
+            <input class="form_input" id="name" name="name" rules="required" type="text" value="@Model.DiaChi">
+            <label for="name" class="form-label">Địa chỉ</label>
+            <div class="form-message"></div>
+        </div>
+        <div class="Body_form mt-4">
+            <input class="form_input" id="phone" name="phone" rules="required|numeric|min:9" type="text" value="@Model.SoDT">
+            <label for="phone" class="form-label">Số điện thoại</label>
+            <div class="form-message"></div>
+        </div>
+        <div class="Body_form mt-4">
+            <input class="form_input" id="email" name="email" rules="required|email" type="email" value="@Model.Email">
+            <label for="phone" class="form-label">Địa chỉ email của bạn</label>
+            <div class="form-message"></div>
+        </div>
+        <div class="Body_form mt-4">
+            <select class="form-select" aria-label="Default select example" style="border: none; padding-left: 5px" name="gender">
+                <option value="1" @(Model.GioiTinh == "Nam" ? "selected" : "")>Nam</option>
+                <option value="0" @(Model.GioiTinh == "Nữ" ? "selected" : "")>Nữ</option>
+            </select>
+        </div>
+        <div class="Body_form mt-4">
+            @if (Model.NgaySinh != null)
+            {
+                <input class="form_input" id="date" name="date" type="datetime" value="@Model.NgaySinh.ToString("yyyy-MM-dd")">
+            }
+            else
+            {
+                <input class="form_input" id="date" name="date" type="date" value="">
+            }
+            <label for="phone" class="form-label form-label-option">Ngày sinh của bạn(tùy chọn)</label>
+            <div class="form-message"></div>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-custom btn-danger">Cập nhật tài khoản</button>
+        </div>
+    }
+</form>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+     $(document).ready(function () {
+         // Function to handle form submission
+         $('#accountDetail').submit(function (event) {
+             // Prevent default form submission
+             event.preventDefault();
+
+             // Serialize form data
+             var formData = $(this).serialize();
+
+             // Parse form data into individual key-value pairs
+             var formDataArray = formData.split('&');
+             var KhachHang = {};
+             formDataArray.forEach(function (pair) {
+                 var keyValue = pair.split('=');
+                 var key = decodeURIComponent(keyValue[0]);
+                 var value = decodeURIComponent(keyValue[1]);
+                 // Assign values to the KhachHang object based on field names
+                 switch (key) {
+                     case 'lastname':
+                         KhachHang.HoTen = value;
+                         break;
+                     case 'name':
+                         KhachHang.DiaChi = value;
+                         break;
+                     case 'phone':
+                         KhachHang.SoDT = value;
+                         break;
+                     case 'email':
+                         KhachHang.Email = value;
+                         break;
+                     case 'gender':
+                         if (value == 0) {
+                             KhachHang.GioiTinh = 'Nữ';
+                         } else {
+                             KhachHang.GioiTinh = 'Nam';
+                         }
+                     case 'date':
+                         KhachHang.NgaySinh = value;
+                         break;
+                     default:
+                         break;
+                 }
+             });
+
+             // AJAX call to update profile
+             $.ajax({
+                 type: 'POST',
+                 url: '@Url.Action("UpdateProfile", "Account")', // Update with your actual API endpoint
+                 data: KhachHang, // Send parsed data
+                 success: function (response) {
+                     // Handle success response
+                     console.log('Profile updated successfully:', response);
+                     // You can perform further actions like showing a success message or redirecting the user
+                     $('#NotiUpdate').text(response.message).c;
+                     $('#NotiUpdate').css('display', 'block');
+                     setTimeout(function () {
+                         $('#NotiUpdate').css('display', 'none');
+                     }, 3000);
+                 },
+                 error: function (xhr, status, error) {
+                     // Handle error response
+                     console.error('Error updating profile:', error);
+                     // You can display an error message to the user or handle the error in another way
+                 }
+             });
+         });
+     });
+</script>

@@ -1,0 +1,87 @@
+﻿@model KFC_Framework.Models.ChiTietKho
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@*@if (TempData["Error"] != null)
+{
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Thông báo lỗi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @TempData["Error"]
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <hr />
+        <h3 class="text-center">Manager Warehouse</h3>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaKho, "Mã Kho", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.MaKho, new SelectList((List<KFC_Framework.Models.Kho>)ViewData["MaKho"], "MaKho", "MaKho"), "Select Type", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaKho, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaNVL, "Mã Nguyên Vật Liệu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.MaNVL, new SelectList((List<KFC_Framework.Models.NguyenVL>)ViewData["MaNVL"], "MaNVL", "TenNVL"), "Select Type", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MaNVL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.DVT, "Đơn Vị Tính", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DVT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DVT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.SoLuongT, "Số Lượng Tồn", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoLuongT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoLuongT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-sm-2">&#160;</div>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-danger fw-bold">SAVE</button>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-2">&#160;</div>
+            <div class="col-sm-10">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+    </script>

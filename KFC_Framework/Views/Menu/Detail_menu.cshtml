@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Detail_menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .linkBack{
+        text-transform: capitalize;
+    }
+    .linkBack:hover{
+        text-decoration: underline;
+    }
+</style>
+<main class="pb-4">
+    @Html.Action("_PartialHeaderSub", "Parital")
+    <div class="container">
+        <nav class="mt-4" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @{
+                    var pathMapping = new Dictionary<string, string>
+                    {
+                        { "ƯU ĐÃI", "/Menu/#hot-deal" },
+                        { "MÓI MỚI", "/Menu/#new-product" },
+                        { "COMBO 1 NGƯỜI", "/Menu/#for-one" },
+                        { "COMBO NHÓM", "/Menu/#sharing" },
+                        { "GÀ RÁN - GÀ QUAY", "/Menu/#fried-rosted-chicken" },
+                        { "BURGER - CƠM - MÌ Ý", "/Menu/#burger---rice" },
+                        { "THỨC ĂN NHẸ", "/Menu/#snack" },
+                        { "THỨC UỐNG & TRÁNG MIỆNG", "/Menu/#dessert-and-drink" },
+                    };
+
+                    if (@ViewBag.lh is string && pathMapping.ContainsKey(@ViewBag.lh))
+                    {
+                        string path = pathMapping[@ViewBag.lh];
+                        <li class="breadcrumb-item"><a class="linkBack link-secondary" href="@path">@ViewBag.lh</a></li>
+                    }
+                }
+                <li class="breadcrumb-item active" aria-current="page">@Model.TenSP</li>
+            </ol>
+
+        </nav>
+        <div class="row">
+            <div class="col-7 wrapper-cart-left">
+                <div class="mb-3 d-flex justify-content-center">
+                    <img style="width: 480px; height: 380px" src="@Url.Content(Model.HinhAnh)" />
+                </div>
+            </div>
+            <style>
+                .cart-right-noAccount {
+                    min-height: 256px
+                }
+
+                .cart-right-detail {
+                    padding: 55px 35px 35px;
+                }
+
+                .cart-right-detail::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 52px;
+                    width: 12px;
+                    height: 30px;
+                    box-shadow: inset 0 0 0 32px #e4002b, -22px 0 #e4002b, 22px 0 #e4002b;
+                }
+
+                .cart-right-detail h1 {
+                    font-size: 32px
+                }
+
+                .cart-right-detail p {
+                    color: #78838c;
+                }
+            </style>
+            <div class="col-5 ">
+                <div class="cart-right cart-right-noAccount cart-right-detail rounded-4">
+                    <h1 class="mb-3">@Model.TenSP</h1>
+                    <p>@Model.MoTaSP</p>
+                    <button onclick="window.location.href='@Url.Action("AddToCart", "Menu" , new { id = Model.MaSP })'" class="btn btn_dathang w-100">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/partialStyle.css" />
+    <link rel="stylesheet" href="~/Content/Cart.css" />
+}

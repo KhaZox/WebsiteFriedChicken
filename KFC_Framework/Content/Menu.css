@@ -1,0 +1,122 @@
+﻿.wrapper-menu {
+    position: relative;
+    top: 0;
+}
+#navbar-tab-menu {
+    position: sticky;
+    top: 168px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    font-family: 'Oswald-SemiBold';
+    font-size: 20px;
+    color: rgba(0,0,0,.5);
+    padding: 0;
+    background-color: #fff;
+    z-index: 1
+}
+
+.nav-tab-menu-link {
+    position: relative;
+    color: rgba(0,0,0,.5);
+}
+
+.nav-tab-menu-link:focus {
+    color: #000;
+}
+
+.nav-tab-menu-link:hover {
+    color: #000;
+}
+
+.nav-pills .nav-link {
+    position: relative;
+}
+
+.nav-pills .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 5px;
+    background: #e4002b;
+    transition: width .3s ease 0s;
+}
+.nav-pills .nav-link.active{
+    background-color: transparent;
+    color: #000;
+}
+.nav-pills .nav-link.active::before,
+.nav-pills .show > .nav-link::before {
+    width: 100%;
+    background: #e4002b;
+}
+
+/*Part menu-items*/
+.content-tab-menu h4 {
+    font-family: 'Oswald-SemiBold';
+    font-size: 28px
+}
+
+.card-menu {
+    position: relative;
+}
+
+.img-menu-item {
+    object-fit: cover;
+    transition: all .7s;
+    -webkit-transition: all .7s;
+}
+
+.img-menu-item:hover {
+    transform: scale(1.1)
+}
+
+.card-body-menu {
+    padding: 4px 10px 20px;
+}
+
+.btn-dathang-menu {
+    width: 100%;
+    height: 47px
+}
+
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear .3s,opacity .5s;
+}
+
+.desc {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 20px;
+}
+
+.desc p {
+    font-size: 15px;
+    color: #000;
+}
+
+.close-detail-menu {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 28px;
+    height: 28px;
+    background: #ccc;
+    color: #f2f2f2;
+    border-radius: 50%;
+    line-height: 16px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer
+}

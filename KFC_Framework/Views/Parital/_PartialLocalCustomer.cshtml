@@ -1,0 +1,38 @@
+﻿@if (Model != null && Model.Count > 0)
+{
+    <h2 class="login_title text-dark">ĐỊA CHỈ GIAO HÀNG ĐÃ LƯU</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Địa chỉ nhận hàng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                int stt = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@stt</th>
+                    <td>@item.MaDDH</td>
+                    <td>@item.DiaChiNhan</td>
+                </tr>
+                stt++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2 class="login_title text-dark">ĐỊA CHỈ GIAO HÀNG ĐÃ LƯU</h2>
+
+    <p class="login_title text-center fs-4">Hiện chưa có địa chỉ nào được lưu.</p>
+}
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+

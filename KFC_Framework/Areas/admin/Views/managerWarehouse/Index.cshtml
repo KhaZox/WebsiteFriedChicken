@@ -1,0 +1,190 @@
+﻿@model IEnumerable<KFC_Framework.Models.ChiTietKho>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@*@if (TempData["Error"] != null)
+{
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Thông báo lỗi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @TempData["Error"]
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+<table id="warehouseTable" class=" table-sm table table-striped table-light table-hover custom-thead-color">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col" class="">
+                Mã Kho
+            </th>
+            <th scope="col">
+                Mã nguyên vật liệu
+            </th>
+            <th scope="col">
+                Tên nguyên vật liệu
+            </th>
+            <th scope="col">
+                Đơn vị tính
+            </th>
+            <th scope="col">
+                Số lượng tồn
+            </th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider align-middle">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kho.MaKho)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguyenVL.MaNVL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguyenVL.TenNVL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DVT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuongT)
+                </td>
+                <td>
+                    <button type="button" class="btn control-padding" data-bs-toggle="modal" data-bs-target="#inforModal_@item.MaKho" data-bs-whatever="xxxxx">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <div class="modal fade" id="inforModal_@item.MaKho" tabindex="-1" aria-labelledby="inforModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="inforModalLabel">Information of @item.MaKho</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body text-start">
+                                    <form class="w-100">
+                                        <div class="mb-3">
+                                            <label for="localWarehouse" class="col-form-label">Location Warehouse</label>
+                                            <input type="text" class="form-control" value="@item.Kho.DiaChi" id="localWarehouse" disabled>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ActionLink(" ", "Edit", new { maKho = item.MaKho, maNVL = item.MaNVL }, new { @class = "action-link bi bi-pencil", @style = "margin-right: 10px; text-decoration: none;" })
+
+                    <button type="button" class="btn btn-danger rounded-circle rounded-5 control-padding" onclick="openDeleteModal('@item.MaKho', '@item.MaNVL')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Xóa sản phẩm</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="deleteModalContent"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form id="deleteForm" action="" method="post">
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section css{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Areas/admin/CSS/Admin.css">
+
+}
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#warehouseTable').DataTable({
+                columnDefs: [{ orderable: false, targets: 5 }],
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true,
+                //select: true,
+                processing: true,
+                lengthMenu: [10, 25, 50, 100],
+                responsive: true,
+            })
+        })
+
+        $(document).ready(function () {
+            function ExportExcelFile() {
+                window.location.href = "/admin/managerWarehouse/ExportExcel_EPPLUS";
+            }
+            var buttonAddMaterial = $('<button>', {
+                id: 'buttonAddMaterial',
+                class: 'btn btn-primary text-light fw-bold me-3 ',
+                text: 'Thêm nguyên vật liệu',
+                click: createNew
+            });
+            function createNew() {
+                window.location.href = '@Url.Action("Create")';
+            }
+            var buttonDownload = $('<button>', {
+                id: 'btnDownload',
+                class: 'btn btn-outline-secondary fw-bold me-3 ',
+                text: 'Download All',
+                click: ExportExcelFile,
+            });
+
+            $('#warehouseTable_filter').prepend(buttonAddMaterial, buttonDownload);
+        });
+
+
+        function openDeleteModal(maKho, maNVL) {
+            var modal = $('#deleteModal');
+            var modalContent = modal.find('#deleteModalContent');
+            var deleteForm = modal.find('#deleteForm');
+
+            modalContent.text('Bạn có muốn xóa ' + maKho + ' & ' + maNVL + '?');
+
+            deleteForm.attr('action', '/admin/managerWarehouse/Delete?maKho=' + maKho + '&maNVL=' + maNVL);
+
+            modal.modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+
+    </script>
+
+}

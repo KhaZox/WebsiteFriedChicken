@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "PersonAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form_input.has-value ~ .form-label {
+        top: -1px;
+        font-size: 0.8em;
+    }
+    .list-group-item {
+        transition: 2.5s;
+    }
+    .active {
+        opacity: 1;
+        display: block !important;
+    }
+</style>
+<div class="container text-center account wrapper_login" style="padding: 40px 15px; transition: 2.5s;">
+    <div class="row text-center">
+        <div class="col col-4 account-tab">
+            <div class="account-profile text-start">
+                <h2>XIN CHÀO, <br />@Session["LoggedInUser"]</h2>
+                <div id="logout">
+                    <p class="text-decoration-underline text-light" style="cursor: pointer">Đăng xuất</p>
+                </div>
+            </div>
+            <div class="list-group text-start mt-4">
+                <a href="#my_order" class="list-group-item " >Đơn hàng đã đặt</a>
+                <a href="#local_customer" class="list-group-item ">Địa chỉ của bạn</a>
+                <a href="#detail" class="list-group-item" >Chi tiết tài khoản</a>
+                <a href="#reset_password" class="list-group-item test " >Đặt lại mật khẩu</a>
+                <a href="#delete_account" class="list-group-item " >Xóa tài khoản</a>
+            </div>
+        </div>
+        <div class="col col-8 account-items-render ">
+            <div hidden id="my_order" class="text-start form">@Html.Action("_PartialHistoryOrder", "Parital")</div>
+            <div hidden id="local_customer" class="text-start form">@Html.Action("_PartialLocalCustomer", "Parital")</div>
+            <div hidden id="detail" class="active">@Html.Action("_PartialDetailAccount", "Parital")</div>
+            <div hidden id="reset_password">@Html.Action("_PartialReset_Password", "Parital")</div>
+            <div hidden id="delete_account">@Html.Action("_PartialDeletaAccount", "Parital")</div>
+        </div>
+    </div>
+</div>
+
+
+@section css{
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/Content/Account.css" />
+}
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+
+        //Logout
+        $(document).ready(function() {
+            $("#logout").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Logout", "Account")', // ASP.NET MVC Razor syntax để sinh URL
+                    success: function(data) {
+                        // Xử lý sau khi logout thành công
+                        // Ví dụ: Redirect về trang chủ
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    },
+                    error: function(xhr, status, error) {
+                        // Xử lý lỗi
+                        console.error("Logout failed: " + error);
+                    }
+                });
+            });
+        });
+
+        //ChangePassword
+        $(document).ready(function () {
+
+            $('#changePasswordForm').on('submit', function (event) {
+                event.preventDefault(); // Stop the form from submitting
+                event.stopPropagation(); // Stop the event from bubbling up the DOM tree
+
+                var ChangePasswordViewModel = {
+                    CurrentPassword: $('#curpassword').val(),
+                    NewPassword: $('#newpassword').val(),
+                    ConfirmPassword: $('#confirpassword').val()
+                };
+
+                 // Get URL from data attribute
+                $.ajax({
+                    url: '/Account/ChangePassword',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(ChangePasswordViewModel),
+                    success: function (response) {
+                        if (response.success) {
+                            console.log('Success:', response);
+                            $('#Noti').css('display', 'block');
+                            setTimeout(function () {
+                                $('#Noti').css('display', 'none');
+                            }, 3000);
+                            // Optionally, alert the user or update the UI
+                        } else {
+                            console.error('Error:', response.message)
+                            $('#Noti').text(response.message).c;
+                            $('#Noti').css('display', 'block');
+                            setTimeout(function () {
+                                $('#Noti').css('display', 'none');
+                            }, 3000);
+                            // Handle the error, e.g., display an error message
+                        }
+                        // Optionally, alert the user or update the UI
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        // Optionally, handle the error, e.g., display an error message
+                    }
+                });
+            });
+        });
+
+        //Reder
+        $(document).ready(function () {
+            $('.list-group-item').click(function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi mặc định của các liên kết
+                //$('.list-group-item').removeClass('active'); // Loại bỏ class 'active' từ tất cả các phần tử 'a'
+
+                $(this).addClass('active'); // Thêm class 'active' cho phần tử 'a' được nhấn
+
+                var target = $(this).attr('href'); // Lấy giá trị của thuộc tính 'href' của phần tử 'a'
+                $('.account-items-render  div').removeClass('active') // Ẩn tất cả các phần tử div trong '.account-items-render'
+                $(target).addClass('active'); // Hiển thị phần tử div tương ứng với 'href' được nhấn
+            });
+        
+        });
+
+    </script>
+}

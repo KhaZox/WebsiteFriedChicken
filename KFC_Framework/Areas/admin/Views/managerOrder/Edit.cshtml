@@ -1,0 +1,132 @@
+﻿@model KFC_Framework.Models.DonDatHang
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <h2>CHỈNH SỬA ĐƠN HÀNG</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaDDH)
+
+        <!--<div class="mb-3 row">
+            @Html.LabelFor(model => model.MaKH, "Mã Khách Hàng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-sm-10">-->
+        @*@Html.DropDownListFor(model => model.MaKH, (IEnumerable<SelectListItem>)ViewBag.cutomerList, "Select Customer", new { @class = "form-control", id = "customerDropdown" })*@
+        <!--@Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+            </div>
+        </div>-->
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.MaKH, "Mã Khách Hàng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MaKH, new { htmlAttributes = new { @class = "form-control", id = "makh", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.TenNguoiNhan, "Tên Người Nhận", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenNguoiNhan, new { htmlAttributes = new { @class = "form-control", id = "tenNguoiNhan", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.TenNguoiNhan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.NgayDH, "Ngày Đặt Hàng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" class="form-control" id="NgayDH" name="NgayDH" value="@Model.NgayDH.ToString("yyyy-MM-dd")" />
+                @Html.ValidationMessageFor(model => model.NgayDH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.NgayGH, "Ngày Giao Hàng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" class="form-control" id="NgayGH" name="NgayGH" value="@Model.NgayGH.ToString("yyyy-MM-dd")" />
+                @Html.ValidationMessageFor(model => model.NgayGH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.HTThanhToan, "Hình Thức Thanh Toán", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HTThanhToan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HTThanhToan, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.HTGiaoHang, "Hình Thức Giao Hàng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HTGiaoHang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HTGiaoHang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.TriGia, "Trị Giá", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" class="form-control" id="trigia" name="trigia" value="@Model.TriGia" />
+                @Html.ValidationMessageFor(model => model.TriGia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="mb-3 row">
+            @Html.LabelFor(model => model.TinhTrang, "Tình Trạng", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TinhTrang, new SelectList(
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Đang vận chuyển", Value = "Đang vận chuyển" },
+                        new SelectListItem { Text = "Đang xử lý", Value = "Đang xử lý" },
+                        new SelectListItem { Text = "Hoàn thành", Value = "Hoàn thành" },
+                        new SelectListItem { Text = "Đã hủy", Value = "Đã hủy" }
+                    }, "Value", "Text"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TinhTrang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="mb-3 row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-danger fw-bold">SAVE</button>
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            </div>
+
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        //console.log($('#customerDropdown'))
+        //$(document).ready(function () {
+        //    $('#customerDropdown').change(function () {
+        //        var selectedValue = $(this).val();
+        //        if (selectedValue !== '') {
+        //            $('#tenNguoiNhan').prop('disabled', true);
+        //            $('#tenNguoiNhan').val(' ')
+        //        } else {
+        //            $('#tenNguoiNhan').prop('disabled', false);
+        //        }
+        //    });
+
+        //    $('#customerDropdown').change(function () {
+        //        var selectedCustomerId = $(this).val(); /
+        //        var selectedCustomerName = $(this).find('option:selected').text(); // Lấy tên khách hàng được chọn
+        //        $('#tenNguoiNhan').val(selectedCustomerName); // Cập nhật ô tên người nhận
+        //    });
+        //});
+    </script>
+}

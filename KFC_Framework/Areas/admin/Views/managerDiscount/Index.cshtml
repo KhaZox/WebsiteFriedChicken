@@ -1,0 +1,148 @@
+﻿@model IEnumerable<KFC_Framework.Models.GiamGia>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@Html.Action("_PartialErrorAccessRole", "Parital", new { area = "" })
+<table id="discountTable" class="table-sm table table-striped table-light table-hover custom-thead-color">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Mã Giảm giá
+            </th>
+            <th>
+                Tên Sự Kiên
+            </th>
+            <th>
+                Phần Trăm
+            </th>
+            <th>
+                Thời Gian Bắt Đầu
+            </th>
+            <th>
+                Thời Gian Kết Thúc
+            </th>
+            <th scope="col">&#160;</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider align-middle">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaGG)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSuKien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhanTram)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGianBD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGianKT)
+                </td>
+                <td>
+                    <button type="button" class="btn control-padding" data-bs-toggle="modal" data-bs-target="#inforModal_@item.MaGG" data-bs-whatever="xxxxx">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <div class="modal fade" id="inforModal_@item.MaGG" tabindex="-1" aria-labelledby="inforModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="inforModalLabel">Information of @item.MaGG</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body text-start">
+                                    <form class="w-100">
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Thông tin ưu đãi</label>
+                                            <textarea class="form-control" id="recipient-name" disabled>@item.ThongTinSuKien</textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @Html.ActionLink(" ", "Edit", new { id = item.MaGG }, new { @class = "action-link bi bi-pencil", @style = "margin-right: 10px; text-decoration: none;" })
+
+                    @*Delete*@
+                    <button type="button" class="btn btn-danger rounded-circle rounded-5 control-padding" data-bs-toggle="modal" data-bs-target="#deleteModal_@item.MaGG">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                    <div class="modal fade" id="deleteModal_@item.MaGG" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteModalLabel">Xóa Ưu Đãi</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bạn có muốn xóa Ưu Đãi @item.TenSuKien</p>
+                                </div>
+                                <div class="modal-footer">
+                                    @using (Html.BeginForm("Delete", "managerDiscount", new { id = item.MaGG }, FormMethod.Post))
+                                    {
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section css{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Areas/admin/CSS/Admin.css">
+
+}
+@section scripts{
+    <script>
+
+        $(document).ready(() => {
+            $('#discountTable').DataTable({
+                columnDefs: [{ orderable: false, targets: 5 }],
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true,
+                //select: true,
+                processing: true,
+                lengthMenu: [10, 25, 50, 100],
+                responsive: true,
+            })
+        })
+
+        function createNew() {
+            window.location.href = '@Url.Action("Create")';
+        }
+
+        $(document).ready(function () {
+            var buttonAddProduct = $('<button>', {
+                id: 'buttonAddProduct',
+                class: 'btn btn-primary text-light fw-bold me-3 ',
+                text: 'Thêm Ưu đãi',
+                click: createNew,
+            });
+            $('#discountTable_filter').prepend(buttonAddProduct);
+        });
+
+
+        $(document).ready(function () {
+            $('#errorModal').modal('show');
+        });
+    </script>
+}
